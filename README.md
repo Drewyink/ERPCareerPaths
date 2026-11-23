@@ -1,4 +1,4 @@
-# ERP Career Paths
+# ERP and AI Careers Q&A
 
 An interactive page from Echolink Solutions that shows ERP, Power BI, Power Automate and AI Copilot career paths, class details, software links, questions and answers, and how the four tools connect.
 
