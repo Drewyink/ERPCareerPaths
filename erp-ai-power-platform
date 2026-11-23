@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERP and AI Careers Q&amp;A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: four track tabs, a rising staircase of clickable roles, and one detail panel that answers "what do I do here and how do I move up". */
+:root{
+  --bg:#F7F6F4; --surface:#FFFFFF; --ink:#1D1B19; --muted:#5E5953; --line:#E3DFDA;
+  --brand:#E8641E; --brand-ink:#B3460C;
+  --t-erp:#E8641E; --t-bi:#C98A00; --t-pa:#1F63D6; --t-ai:#0E8A7C;
+  --track:var(--t-erp);
+  --display:"Sora", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --surface:#211E1B; --ink:#F2EEE9; --muted:#B3ACA4; --line:#3A3530;
+    --brand:#F07A38; --brand-ink:#F59A62;
+    --t-erp:#F07A38; --t-bi:#E3A72A; --t-pa:#5C93F0; --t-ai:#2DB5A5;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --surface:#211E1B; --ink:#F2EEE9; --muted:#B3ACA4; --line:#3A3530;
+  --brand:#F07A38; --brand-ink:#F59A62;
+  --t-erp:#F07A38; --t-bi:#E3A72A; --t-pa:#5C93F0; --t-ai:#2DB5A5;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button{touch-action:manipulation}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 48px;display:grid;gap:24px}
+header{display:grid;gap:18px;justify-items:start}
+.mark{display:flex;align-items:center;gap:10px}
+.mark .es{width:38px;height:38px;border-radius:6px;background:var(--brand);color:#fff;font-family:var(--display);font-weight:700;display:grid;place-items:center;font-size:16px}
+.mark .name{font-family:var(--display);font-weight:700;letter-spacing:.06em;font-size:15px;line-height:1.1}
+.mark .name small{display:block;font-family:var(--body);font-weight:600;letter-spacing:.32em;font-size:10px;color:var(--muted)}
+h1{font-family:var(--display);font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+.lede{margin:6px 0 0;color:var(--muted);max-width:62ch}
+.pagetabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-bottom:1.5px solid var(--line)}
+.ptab{appearance:none;font:inherit;font-family:var(--display);font-weight:600;font-size:16px;cursor:pointer;background:transparent;color:var(--muted);border:0;border-bottom:3px solid transparent;margin-bottom:-1.5px;padding:10px 14px;white-space:nowrap;flex:none}
+.ptab:hover{color:var(--ink)}
+.ptab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brand)}
+.ptab:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:6px}
+.view{display:grid;gap:24px}
+.view[hidden]{display:none}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tab{appearance:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:14px 14px 12px;text-align:left;cursor:pointer;font:inherit;display:grid;gap:2px;transition:border-color .15s, transform .15s}
+.tab:hover{border-color:var(--c)}
+.tab .t{font-family:var(--display);font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.tab .t::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.tab .s{font-size:14px;color:var(--muted)}
+.tab[aria-selected="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.tab:focus-visible,.step:focus-visible,.btn:focus-visible,.chip-link:focus-visible{outline:3px solid var(--c, var(--track));outline-offset:2px}
+.board{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:18px}
+.board-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+.board-head h2{font-family:var(--display);font-size:22px;margin:0}
+.board-head p{margin:0;color:var(--muted);font-size:15px}
+.stairs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:10px;align-items:end;overflow-x:auto;padding-bottom:4px}
+.step{appearance:none;font:inherit;color:var(--ink);text-align:left;cursor:pointer;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:12px;display:grid;gap:4px;align-content:start;min-width:132px;position:relative}
+.step:hover{border-color:var(--track)}
+.step .lvl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.step .role{font-family:var(--display);font-weight:600;font-size:15px;line-height:1.25}
+.step .meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.step .bar{height:6px;border-radius:3px;background:var(--track);opacity:.35;margin-top:6px}
+.step[aria-pressed="true"]{border-color:var(--track);background:var(--surface);box-shadow:0 6px 18px -10px var(--track)}
+.step[aria-pressed="true"] .bar{opacity:1}
+.step[aria-pressed="true"] .lvl{color:var(--track)}
+.spec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;border-top:1px dashed var(--line);padding-top:16px}
+.spec-head h3{font-family:var(--display);font-size:17px;margin:0}
+.spec-head p{margin:0;color:var(--muted);font-size:14px}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px}
+.specs .step{min-width:0}
+.tag{justify-self:start;font-size:12px;font-weight:700;border-radius:999px;padding:1px 9px;border:1px solid var(--track);color:var(--ink)}
+.detail{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;border-top:1px solid var(--line);padding-top:20px}
+.detail h3{font-family:var(--display);font-size:24px;margin:0;text-wrap:balance}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.fact{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;font-variant-numeric:tabular-nums;background:var(--bg)}
+.fact b{color:var(--track)}
+.detail h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+.detail p{margin:0;max-width:62ch}
+.detail ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.certs{display:grid;gap:8px}
+.cert{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);display:grid;gap:2px}
+.cert .code{font-weight:700;font-variant-numeric:tabular-nums}
+.cert .note{font-size:14px;color:var(--muted)}
+.next{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{appearance:none;font:inherit;font-weight:600;cursor:pointer;border-radius:10px;padding:10px 16px;border:1.5px solid var(--track);background:var(--track);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn[disabled]{opacity:.4;cursor:default}
+.switch{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{appearance:none;font:inherit;font-size:14px;cursor:pointer;border-radius:999px;padding:5px 12px;border:1.5px solid var(--c);background:transparent;color:var(--ink)}
+.chip-link::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:1px}
+.sec{display:grid;gap:14px}
+.sec h2{font-family:var(--display);font-size:24px;margin:0}
+.sec > p{margin:0;color:var(--muted);max-width:70ch}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:10px}
+.info .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:4px}
+.info .k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.info .v{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3}
+.info .d{font-size:14px;color:var(--muted)}
+.info .v a{font-size:15px;overflow-wrap:anywhere}
+a{color:var(--brand-ink);text-underline-offset:2px}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:4px}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.lgroup{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;align-content:start}
+.lgroup h3{font-family:var(--display);font-size:16px;margin:0;display:flex;align-items:center;gap:8px}
+.lgroup h3::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c,var(--brand))}
+.lgroup ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lgroup li{display:grid;gap:1px}
+.lgroup li a{font-weight:600}
+.lgroup li span{font-size:14px;color:var(--muted)}
+.faq{display:grid;gap:8px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 16px}
+.faq details[open]{border-color:var(--brand)}
+.faq summary{cursor:pointer;list-style:none;padding:14px 0;font-weight:700;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--display);color:var(--brand);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq .a{padding:0 0 16px;display:grid;gap:8px;max-width:75ch}
+.faq .a p{margin:0}
+.faq .a ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.contact{background:var(--surface);border:1.5px solid var(--brand);border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;justify-content:space-between}
+.contact h2{font-family:var(--display);font-size:20px;margin:0}
+.contact p{margin:0;color:var(--muted)}
+.contact .em{font-family:var(--display);font-weight:700;font-size:18px}
+.ind{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ind span{font-size:14px;color:var(--muted);font-weight:600}
+.indbtn{appearance:none;font:inherit;font-weight:600;font-size:15px;cursor:pointer;border-radius:999px;padding:6px 14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.indbtn[aria-pressed="true"]{border-color:var(--t-ai);box-shadow:inset 0 0 0 1.5px var(--t-ai)}
+.indbtn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.ehr{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:15px;max-width:90ch}
+.ehr[hidden]{display:none}
+.hub{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px}
+.diagram svg{width:100%;height:auto;display:block}
+.svg-tall{display:none !important}
+.node rect{fill:var(--bg);stroke:var(--line);stroke-width:2;transition:stroke .15s, fill .15s}
+.node .nm{font-family:var(--display);font-weight:700;font-size:18px;fill:var(--ink)}
+.node .sb{font-family:var(--body);font-size:15px;fill:var(--muted)}
+.node .dot{fill:var(--c)}
+.node{cursor:pointer}
+.node:hover rect,.node:focus-visible rect{stroke:var(--c)}
+.node.on rect{stroke:var(--c);stroke-width:3;fill:var(--surface)}
+.node.lit rect{stroke:var(--c);stroke-width:3}
+.node:focus{outline:none}
+.edge{cursor:pointer}
+.edge .ln{stroke:var(--line);stroke-width:3;fill:none;transition:stroke .15s}
+.edge .hit{stroke:transparent;stroke-width:22;fill:none}
+.edge .lbl rect{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
+.edge .lbl text{font-family:var(--body);font-size:14px;font-weight:600;fill:var(--ink)}
+.edge:hover .ln,.edge:focus-visible .ln{stroke:var(--brand)}
+.edge.on .ln,.edge.lit .ln{stroke:var(--brand);stroke-dasharray:8 6}
+.edge.on .lbl rect{stroke:var(--brand);stroke-width:2}
+.edge:focus{outline:none}
+.edge:focus-visible .lbl rect,.node:focus-visible rect{stroke-width:3.5}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:10px;align-content:start}
+.panel .kind{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel h3{font-family:var(--display);font-size:22px;margin:0;text-wrap:balance}
+.panel p{margin:0}
+.panel h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.panel ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.panel .ex{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px}
+.hint{font-size:14px;color:var(--muted);margin:0}
+.story{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px}
+.story h3{font-family:var(--display);font-size:20px;margin:0}
+.dots{display:flex;flex-wrap:wrap;gap:8px}
+.dotbtn{appearance:none;font:inherit;font-size:15px;font-weight:700;cursor:pointer;border-radius:999px;min-width:42px;height:42px;padding:0 10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums}
+.dotbtn[aria-current="step"]{border-color:var(--brand);background:var(--brand);color:#fff}
+.dotbtn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.scard{display:grid;gap:6px;border-left:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.scard .tool{justify-self:start;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;border:1.5px solid var(--c);color:var(--ink)}
+.scard .t{font-family:var(--display);font-weight:600;font-size:18px}
+.scard p{margin:0;max-width:75ch}
+.snav{display:flex;flex-wrap:wrap;gap:10px}
+.sbtn{appearance:none;font:inherit;font-weight:600;cursor:pointer;border-radius:10px;padding:9px 16px;border:1.5px solid var(--brand);background:var(--brand);color:#fff}
+.sbtn.ghost{background:transparent;color:var(--ink)}
+.sbtn[disabled]{opacity:.4;cursor:default}
+.sbtn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+@media (max-width:860px){.hub{grid-template-columns:1fr}}
+.bstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px}
+.bstats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:grid;gap:2px}
+.bstats b{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--brand-ink);font-variant-numeric:tabular-nums}
+.bstats span{font-size:14px;color:var(--muted)}
+.pgroups{display:grid;gap:18px}
+.pgroup{display:grid;gap:8px}
+.pg-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.pg-head h3{font-family:var(--display);font-size:18px;margin:0;display:flex;align-items:center;gap:8px}
+.pg-head h3::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.pg-head .count{font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;border:1.5px solid var(--c)}
+.pgroup > p{margin:0;color:var(--muted);font-size:15px}
+.twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px;align-content:start}
+.box h3{font-family:var(--display);font-size:18px;margin:0}
+.box p{margin:0}
+.steps{margin:0;padding-left:22px;display:grid;gap:8px}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--brand);flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.proj .tool{justify-self:start;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;border:1.5px solid var(--c);color:var(--ink)}
+.proj b{font-family:var(--display);font-size:16px}
+.proj p{margin:0;font-size:15px;color:var(--muted)}
+.bio{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.bio .av{width:64px;height:64px;border-radius:50%;background:var(--brand);color:#fff;font-family:var(--display);font-weight:700;font-size:22px;display:grid;place-items:center}
+.bio h3{font-family:var(--display);font-size:20px;margin:0}
+.bio .role{color:var(--muted);font-size:15px;margin:2px 0 8px}
+.bio ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.honest{border-left:0;background:var(--bg);border:1px dashed var(--brand);border-radius:10px;padding:10px 14px;font-size:15px}
+@media (max-width:640px){.bio{grid-template-columns:1fr}}
+.notes{font-size:14px;color:var(--muted);display:grid;gap:6px}
+.notes p{margin:0;max-width:90ch}
+@media (max-width:820px){
+  .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail{grid-template-columns:1fr}
+}
+@media (max-width:960px){
+  .stairs{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));align-items:stretch;overflow:visible}
+  .step{min-width:0;margin-bottom:0 !important}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:18px 14px 36px;gap:18px}
+  .tabs{gap:8px}
+  .tab{padding:12px}
+  .tab .s{font-size:13px}
+  .board{padding:16px;border-radius:14px}
+  .stairs{grid-template-columns:1fr}
+  .step{grid-template-columns:auto 1fr;column-gap:12px;align-items:baseline}
+  .step .lvl{grid-row:1 / span 3}
+  .step .bar{display:none}
+  .specs .step .tag{grid-row:1 / span 3}
+  .detail{gap:14px}
+  .detail h3{font-size:21px}
+  .next .btn{flex:1 1 100%}
+  .pagetabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}
+  .ptab{white-space:normal;font-size:14px;padding:10px 6px;line-height:1.25;text-align:center}
+  .svg-wide{display:none !important}
+  .svg-tall{display:block !important}
+  .diagram{padding:6px}
+  .svg-tall .node .nm{font-size:17px}
+  .svg-tall .node .sb{font-size:13px}
+  .svg-tall .edge .lbl text{font-size:13px}
+  .panel,.story{padding:16px}
+  .contact{flex-direction:column;align-items:flex-start}
+  .contact .em{font-size:16px;word-break:break-all}
+  .sbtn{flex:1}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark" aria-label="Echolink Solutions"><div class="es">ES</div><div class="name">ECHOLINK<small>SOLUTIONS</small></div></div>
+    <div>
+      <h1>ERP and AI Careers Q&amp;A</h1>
+      <p class="lede">Everything you need for today's Q&amp;A: career paths in ERP, Power BI, Power Automate and AI Copilot, how the class works, and how the tools connect.</p>
+    </div>
+  </header>
+
+  <div class="pagetabs" role="tablist" aria-label="Page sections">
+    <button class="ptab" role="tab" id="ptab-paths" aria-controls="view-paths" aria-selected="true" data-view="paths">Career paths</button>
+    <button class="ptab" role="tab" id="ptab-connect" aria-controls="view-connect" aria-selected="false" data-view="connect">How they connect</button>
+    <button class="ptab" role="tab" id="ptab-info" aria-controls="view-info" aria-selected="false" data-view="info">Class info and Q&amp;A</button>
+  </div>
+
+  <div class="view" id="view-paths" role="tabpanel" aria-labelledby="ptab-paths">
+  <nav class="tabs" role="tablist" aria-label="Career tracks" id="tabs"></nav>
+
+  <section class="board" aria-live="polite">
+    <div class="board-head"><h2 id="trackTitle"></h2><p id="trackSub"></p></div>
+    <div class="stairs" id="stairs" role="group" aria-label="Roles on this track, entry level to senior"></div>
+    <div id="specWrap" hidden>
+      <div class="spec-head"><h3>Specialist and technical roles</h3><p>Branches off the main path. Click one to see where it joins and where it leads.</p></div>
+      <div class="specs" id="specs" role="group" aria-label="Specialist and technical ERP roles"></div>
+    </div>
+    <div class="detail" id="detail"></div>
+  </section>
+
+  </div>
+
+  <div class="view" id="view-info" role="tabpanel" aria-labelledby="ptab-info" hidden>
+  <section class="sec" id="class-details" aria-labelledby="cd-h">
+    <h2 id="cd-h">Class details</h2>
+    <div class="info">
+      <div class="card"><span class="k">Next class</span><span class="v">November 30 to December 29, 2026</span><span class="d">Evening cohort, live with your instructor</span></div>
+      <div class="card"><span class="k">Live class</span><span class="v">Monday to Friday, 6:30 to 8:30 PM Eastern</span><span class="d">About four weeks of live sessions</span></div>
+      <div class="card"><span class="k">Office hours</span><span class="v">Monday to Wednesday, 9:00 to 10:00 AM Eastern</span><span class="d">Bring any question about class work, projects or your job search</span></div>
+      <div class="card"><span class="k">Time to job ready</span><span class="v">4 to 8 weeks on average</span><span class="d">Depends on how fast you finish your projects</span></div>
+      <div class="card"><span class="k">Contact</span><span class="v"><a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a></span><span class="d">Questions about enrollment, access or schedules</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="join" aria-labelledby="join-h">
+    <h2 id="join-h">Joining the next class</h2>
+    <div class="twocol">
+      <div class="box">
+        <h3>How to enroll</h3>
+        <ol class="steps">
+          <li>Interested in the next class? Send an email to <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>.</li>
+          <li>We reply with your class registration link. Returning students: ask for your coupon code in the same email.</li>
+          <li>Complete registration. Price and payment options are covered in the Q&amp;A and by email.</li>
+          <li>After you register, you receive your Microsoft Teams invite plus the usernames and passwords for all class software.</li>
+          <li>Finish the Before your first class checklist.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Before your first class</h3>
+        <ul class="check">
+          <li><label><input type="checkbox" id="chk1"><span>Accept your Microsoft Teams invite and join the class team</span></label></li>
+          <li><label><input type="checkbox" id="chk2"><span>Sign in with the class username and password you received, not a personal email</span></label></li>
+          <li><label><input type="checkbox" id="chk3"><span>Test each sign-in link in Software and reading materials below</span></label></li>
+          <li><label><input type="checkbox" id="chk4"><span>Install Power BI Desktop if you use Windows</span></label></li>
+          <li><label><input type="checkbox" id="chk5"><span>Check your internet, microphone and camera</span></label></li>
+          <li><label><input type="checkbox" id="chk6"><span>Block 6:30 to 8:30 PM Eastern, Monday to Friday, on your calendar</span></label></li>
+          <li><label><input type="checkbox" id="chk7"><span>Plan time for homework each week, the way you would for a job</span></label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="build" aria-labelledby="build-h">
+    <h2 id="build-h">What you will build</h2>
+    <p>You leave with real work you can show employers and talk through in interviews. Here is the full list of projects across the class.</p>
+    <div class="bstats">
+      <div><b>9</b><span>ERP processes and projects</span></div>
+      <div><b>6</b><span>Power BI data integrations</span></div>
+      <div><b>5</b><span>Power Automate projects, plus a Power App</span></div>
+      <div><b>10</b><span>AI agents across industries</span></div>
+    </div>
+    <div class="pgroups">
+      <div class="pgroup" style="--c:var(--t-erp)">
+        <div class="pg-head"><h3>ERP business processes in Dynamics 365 Business Central</h3><span class="count">9 projects</span></div>
+        <p>Each process is built and run end to end, the way the business uses it.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash (O2C)</b><p>Customer order, shipment, invoice and payment received, end to end in Business Central.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Procure-to-Pay (P2P)</b><p>Purchase requisition, purchase order, goods receipt, vendor invoice, three-way match and payment.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Record-to-Report (R2R)</b><p>Journal entries, bank reconciliation, month-end close and financial statements.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Plan-to-Produce</b><p>Bills of materials, production orders and inventory for a manufacturing scenario.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Hire-to-Retire</b><p>Employee records, payroll setup and the HR side of the ERP.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Project-to-Profit</b><p>Project budgets, time and expenses, billing and project profitability.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash BRD</b><p>A business requirements document that maps a full process, the way a Business Analyst delivers it.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Support tickets</b><p>Real ERP Support Analyst tickets in the Echolink ERP Service Desk lab.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Business Central setup</b><p>Customers, vendors, items, posting groups, approval workflows and security roles.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-bi)">
+        <div class="pg-head"><h3>Power BI, connected to real data sources</h3><span class="count">6 integrations</span></div>
+        <p>Build reports on more than one system, not just a spreadsheet.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Business Central data</b><p>Sales, purchasing, inventory and finance dashboards built on live ERP data.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Open Epic healthcare data</b><p>Use FHIR test data from the Open Epic public sandbox to build healthcare reports. Test data only, no real patients.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Dataverse</b><p>Report on data from Power Apps, Power Automate and Copilot Studio stored in Dataverse.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Microsoft Foundry</b><p>Bring AI results from Microsoft Foundry into Power BI, such as predictions and classifications.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Excel, SharePoint and SQL</b><p>Combine and clean everyday business data sources with Power Query.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Hospital supply dashboard</b><p>Spend by department, stock-outs and supplies close to expiry, with row-level security.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-pa)">
+        <div class="pg-head"><h3>Power Automate and Power Apps</h3><span class="count">5 flows and 1 app</span></div>
+        <p>Automate the manual steps around the ERP.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>1. Purchase order approval</b><p>Orders over a set amount go to a manager in Teams, and the result is written back to the ERP.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>2. Vendor onboarding</b><p>Collect vendor details with a form, route them for review, then create the vendor in the ERP.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>3. Invoice processing with AI</b><p>Read vendor invoices from email with AI Builder and send them to accounts payable for review.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>4. Low stock reorder alert</b><p>When inventory drops below its reorder point, alert the buyer and start a requisition.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>5. New hire onboarding</b><p>Create accounts, send welcome messages and assign training tasks when a new employee is added.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Apps</span><b>Request tracker app</b><p>A Power Apps app where staff submit and track requests from a phone or browser.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-ai)">
+        <div class="pg-head"><h3>AI agents in Copilot Studio</h3><span class="count">10 agents</span></div>
+        <p>Ten agents built in class, covering the industries students come from.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-ai)"><span class="tool">Healthcare</span><b>1. Hospital supply agent</b><p>Answers questions about supply stock and orders for nursing units and the OR.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Healthcare</span><b>2. Patient access FAQ agent</b><p>Answers questions about clinic hours, locations, referrals and insurance accepted. No patient records.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Manufacturing</span><b>3. Parts and production agent</b><p>Checks part availability, production order status and bills of materials.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Retail</span><b>4. Order status and returns agent</b><p>Looks up customer orders, delivery dates and return rules.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Logistics</span><b>5. Shipment tracking agent</b><p>Answers where a shipment is, using EDI 214 status updates and carrier data.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Finance</span><b>6. Invoice status agent</b><p>Tells vendors and staff whether an invoice is received, approved or paid.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Human resources</span><b>7. Benefits and policy agent</b><p>Answers employee questions from the handbook and benefits documents.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">IT</span><b>8. ERP service desk agent</b><p>Resolves common ERP tickets such as password resets and access requests, and escalates the rest.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Construction</span><b>9. Project cost agent</b><p>Reports budget versus actual cost and change orders for a construction project.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Education</span><b>10. Student enrollment agent</b><p>Answers questions about programs, start dates and enrollment steps.</p></div></div>
+      </div>
+    </div>
+    <p class="hint">The exact projects can change from class to class as Microsoft releases new features.</p>
+  </section>
+
+  <section class="sec" id="jobs" aria-labelledby="jobs-h">
+    <h2 id="jobs-h">Job support after class</h2>
+    <div class="twocol">
+      <div class="box">
+        <ul class="steps">
+          <li>Finish all your projects. Graduation is based on completed projects.</li>
+          <li>When your instructor confirms you are ready, you move to interview preparation.</li>
+          <li>You get recruiter contacts and open roles to apply for.</li>
+          <li>You get help with your applications and with talking about your projects in interviews.</li>
+          <li>If you need more time, you can sit in on the next class.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <p class="honest"><b>Honest note.</b> Training and job support improve your chances, but no training program can guarantee a job. Your effort on the projects, your interview practice and the job market all play a part.</p>
+        <p>On average, students who finish their projects are ready to interview in 4 to 8 weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="instructor" aria-labelledby="ins-h">
+    <h2 id="ins-h">About your instructor</h2>
+    <div class="bio">
+      <div class="av" aria-hidden="true">DY</div>
+      <div>
+        <h3>Drew Y</h3>
+        <p class="role">ERP Architect and Blockchain Analyst. Currently a Quantum Computing Analyst at a car manufacturing company.</p>
+        <ul>
+          <li>Has worked at companies including J.B. Hunt, Arrowhead, Bioworld, Google, Delta Air Lines, Ferrellgas and Providence Health.</li>
+          <li>Experienced ERP Architect across Microsoft Dynamics 365 and Oracle Applications, from business analysis through integration design.</li>
+          <li>Blockchain Analyst experience in enterprise traceability and verifiable data.</li>
+          <li>Set up EDI, HL7 and API integrations with more than 40 hospitals, including hospitals running Epic and Cerner.</li>
+          <li>Delivered training to NHS trusts in the UK and to organizations in Sweden, the Middle East and Africa.</li>
+          <li>Built and deployed more than 300 Copilot Studio agents across Teams and SharePoint, and built AI agents across the athenahealth platform.</li>
+          <li>EDI Analyst and integration experience: EDI mapping in IBM Sterling and TrueCommerce, about 50 new trading partners onboarded a year, and X12 transactions including 850, 855, 856, 810, 204, 214, 210, 990, 943 and 944.</li>
+          <li>Project scheduling and project controls experience in Primavera P6.</li>
+          <li>Hands-on with Power BI, Power Automate and Microsoft Entra.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="software" aria-labelledby="sw-h">
+    <h2 id="sw-h">Software and reading materials</h2>
+    <p>Echolink Solutions provides all class software. Usernames and passwords are provided to all registered students. Sign in to each tool below with the class account you are given, not a personal email.</p>
+    <div class="links">
+      <div class="lgroup" style="--c:var(--t-erp)"><h3>ERP: Dynamics 365 Business Central</h3><ul>
+        <li><a href="https://businesscentral.dynamics.com" target="_blank" rel="noopener">Sign in to Business Central</a><span>Where you post orders, invoices and journals</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/dynamics365/business-central/" target="_blank" rel="noopener">Business Central documentation</a><span>Microsoft's official how-to guides</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/mb-800/" target="_blank" rel="noopener">MB-800 exam page</a><span>Business Central Functional Consultant</span></li>
+      </ul></div>
+      <div class="lgroup" style="--c:var(--t-bi)"><h3>Power BI</h3><ul>
+        <li><a href="https://app.powerbi.com" target="_blank" rel="noopener">Sign in to the Power BI service</a><span>Publish and share dashboards in the browser</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-get-the-desktop" target="_blank" rel="noopener">Download Power BI Desktop</a><span>Windows only. Build reports and data models</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-bi/" target="_blank" rel="noopener">Power BI documentation</a><span>Power Query, DAX and report design</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/pl-300/" target="_blank" rel="noopener">PL-300 exam page</a><span>Power BI Data Analyst</span></li>
+      </ul></div>
+      <div class="lgroup" style="--c:var(--t-pa)"><h3>Power Automate and Power Apps</h3><ul>
+        <li><a href="https://make.powerautomate.com" target="_blank" rel="noopener">Sign in to Power Automate</a><span>Build approval and notification flows</span></li>
+        <li><a href="https://make.powerapps.com" target="_blank" rel="noopener">Sign in to Power Apps</a><span>Build apps on Dataverse and Business Central data</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-automate/" target="_blank" rel="noopener">Power Automate documentation</a><span>Triggers, actions, approvals and connectors</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-apps/" target="_blank" rel="noopener">Power Apps documentation</a><span>Canvas and model-driven apps</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/power-platform/developer/plan" target="_blank" rel="noopener">Power Apps Developer Plan</a><span>Free practice environment for after class</span></li>
+      </ul></div>
+      <div class="lgroup" style="--c:var(--t-ai)"><h3>AI Copilot</h3><ul>
+        <li><a href="https://copilotstudio.microsoft.com" target="_blank" rel="noopener">Sign in to Copilot Studio</a><span>Build and test your AI agents</span></li>
+        <li><a href="https://ai.azure.com" target="_blank" rel="noopener">Open Microsoft Foundry</a><span>Build custom AI models and agents on Azure</span></li>
+        <li><a href="https://m365.cloud.microsoft" target="_blank" rel="noopener">Microsoft 365 Copilot</a><span>Copilot in Teams, Outlook, Word and Excel</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/" target="_blank" rel="noopener">Copilot Studio documentation</a><span>Topics, knowledge, actions and agent flows</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/browse/" target="_blank" rel="noopener">Browse Microsoft certifications</a><span>Search AB-620, AB-730, AB-100 and others</span></li>
+      </ul></div>
+      <div class="lgroup" style="--c:var(--t-pa)"><h3>Azure and healthcare AI</h3><ul>
+        <li><a href="https://portal.azure.com" target="_blank" rel="noopener">Open Azure Portal</a><span>Manage Azure resources, including AI and data services</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/healthcare-apis/" target="_blank" rel="noopener">Azure Health Data Services documentation</a><span>Healthcare APIs for FHIR and DICOM data</span></li>
+        <li><a href="https://www.microsoft.com/en-us/health-solutions/clinical-workflow/dragon-copilot" target="_blank" rel="noopener">Microsoft Dragon Copilot information</a><span>AI assistant for clinical documentation</span></li>
+      </ul></div>
+      <div class="lgroup"><h3>Class workspace and more reading</h3><ul>
+        <li><a href="https://teams.microsoft.com" target="_blank" rel="noopener">Microsoft Teams</a><span>Class meetings, announcements and assignment hand-in</span></li>
+        <li><a href="https://www.microsoft.com/en-us/power-platform/try-free" target="_blank" rel="noopener">Power Platform free trials</a><span>Power BI, Power Apps, Power Automate and Copilot Studio</span></li>
+        <li><a href="https://learn.microsoft.com/en-us/credentials/retired-certification-exams" target="_blank" rel="noopener">Retired and retiring exams</a><span>Check here before you study for any exam</span></li>
+        <li><span>Introduction to ERP slide deck: shared in the class Teams</span></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions and answers</h2>
+    <div class="faq">
+      <details open><summary>How long is the training?</summary><div class="a"><p>About four weeks of live sessions. Class meets Monday through Friday, 6:30 PM to 8:30 PM Eastern.</p></div></details>
+      <details><summary>How long does it take to be ready for a job?</summary><div class="a"><p>On average, 4 to 8 weeks. The biggest factor is how quickly you complete your projects. If you need more time, you can sit in on the next class.</p></div></details>
+      <details><summary>Is this a class or a job?</summary><div class="a"><p>Treat it like a job, not a class. The class is the build. Each session works like a day at a company that runs on Dynamics 365:</p><ul><li>Show up on time, the way you would for a shift.</li><li>Assignments come in like work tickets and requests from the business, with deadlines.</li><li>You build real deliverables: configurations, reports, flows, agents and documents such as BRDs.</li><li>Homework is part of the job.</li><li>Graduation is based on completing your projects, not on attendance alone.</li></ul></div></details>
+      <details><summary>Do we have access to the software?</summary><div class="a"><p>Yes. Echolink Solutions provides all class software, including Dynamics 365 Business Central, Power BI, Power Automate, Power Apps and Copilot Studio. Usernames and passwords are provided to all registered students. The sign-in links are in the Software and reading materials section above.</p></div></details>
+      <details><summary>When are office hours?</summary><div class="a"><p>Monday through Wednesday, 9:00 AM to 10:00 AM Eastern. Come with any questions about class work, projects, certifications or your job search.</p></div></details>
+      <details><summary>Are the roles remote?</summary><div class="a"><p>It depends on the company. Some ERP, Power BI and AI roles are fully remote, some are hybrid and some are on site. Each job posting lists its work location, so check before you apply.</p></div></details>
+      <details><summary>Do I need ERP experience or a degree?</summary><div class="a"><p>No. The program is built for career changers, help desk and IT support staff, veterans and military spouses, and entry-level job seekers. No ERP experience is required.</p></div></details>
+      <details><summary>I come from healthcare. Is this a good fit?</summary><div class="a"><p>Yes. Hospitals and health systems run ERPs for supply chain, purchasing, finance, payroll and HR, alongside their EHR. Your healthcare background is an advantage: you already know departments, par levels, cost centers and why compliance rules like HIPAA matter.</p><ul><li>ERP Business Analyst or Support Analyst at a hospital or health system</li><li>Supply chain systems analyst for medical and surgical supplies</li><li>Power BI developer building supply, staffing and finance dashboards</li><li>Copilot Studio developer building help desk agents for clinical and support staff</li></ul><p>Open the How they connect tab and choose Healthcare to see a hospital example of all four tools working together.</p></div></details>
+      <details><summary>Do I need to know how to code?</summary><div class="a"><p>Not for most roles. Business Central, Power BI, Power Automate, Power Apps and Copilot Studio are low-code tools. Coding matters only if you choose the technical roles, such as ERP Technical Consultant (X++ or AL) or Power Platform Developer.</p></div></details>
+      <details><summary>What computer do I need?</summary><div class="a"><p>A laptop or desktop with a current web browser and a reliable internet connection. Power BI Desktop runs on Windows 10 or later. If you use a Mac, you can still build and share reports in the Power BI service in your browser.</p></div></details>
+      <details><summary>How do I submit assignments?</summary><div class="a"><p>Send each assignment by direct message to your instructor in Microsoft Teams. Do not post assignments in the class channels.</p></div></details>
+      <details><summary>Which track should I choose?</summary><div class="a"><p>Everyone starts with ERP, because every other track uses ERP data. Then follow what you enjoy:</p><ul><li>Solving business problems and talking to people: ERP Business Analyst or Functional Consultant.</li><li>Numbers and dashboards: Power BI.</li><li>Removing manual steps: Power Automate and Power Apps.</li><li>AI agents: Copilot Studio.</li></ul><p>Open the Career paths tab to compare roles and pay on each track.</p></div></details>
+      <details open><summary>Do I need a certification?</summary><div class="a"><p>No. You do not need a certification to take this training or to get a job. A certification is optional. It helps solidify what you have learned and makes you stand out to employers and recruiters.</p></div></details>
+      <details><summary>Which certification should I take first?</summary><div class="a"><p>Certifications are optional. If you want one, match it to your track: MB-800 for ERP (Business Central), PL-300 for Power BI, AB-410 or PL-400 for Power Automate and Power Apps, and AB-730 then AB-620 for AI Copilot. PL-900 is a good first exam if you want a broad introduction. Always check the retired exams page before you study.</p></div></details>
+      <details><summary>How much does the class cost, and how do I pay?</summary><div class="a"><p>Price and payment options are covered in the live Q&amp;A. If you are interested in the next class, email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a> and we will send you a class registration link. Returning students should ask for their coupon code.</p></div></details>
+      <details><summary>When does the next class start?</summary><div class="a"><p>The next evening class runs November 30 to December 29, 2026, Monday to Friday, 6:30 PM to 8:30 PM Eastern. To join, email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a> and we will send you a class registration link. Ask in the Q&amp;A about the schedule around the December holidays.</p></div></details>
+      <details><summary>What if I miss a class?</summary><div class="a"><p>Tell your instructor in Teams before class whenever you can, the same way you would tell a manager at work. Ask in the Q&amp;A how to catch up on a missed session.</p></div></details>
+      <details><summary>How much time will I need outside class?</summary><div class="a"><p>Plan for homework every week, the way you would for a job. Projects are what get you to graduation and to interviews, so the more time you put in, the faster you get there. Ask in the Q&amp;A for a weekly estimate.</p></div></details>
+      <details><summary>Is a job guaranteed?</summary><div class="a"><p>No training program can guarantee a job. What you get is hands-on projects, interview preparation, recruiter contacts and open roles, and help with your applications once your instructor confirms you are ready.</p></div></details>
+      <details><summary>What happens after I finish?</summary><div class="a"><p>When all your projects are complete and your instructor confirms you are ready, you move to interview preparation. You then get recruiter contacts and open roles to apply for, with help on your applications.</p></div></details>
+      <details><summary>Who do I contact with other questions?</summary><div class="a"><p>Email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>, or bring your question to office hours.</p></div></details>
+    </div>
+  </section>
+
+  </div>
+
+  <div class="view" id="view-connect" role="tabpanel" aria-labelledby="ptab-connect" hidden>
+  <section class="sec" aria-labelledby="hc-h">
+    <h2 id="hc-h">How ERP, Power BI, Power Automate and AI Copilot connect</h2>
+    <p>The ERP is the system of record. Every other tool reads from it, acts on it or answers questions about it. Click any box or any line to see what passes between them.</p>
+    <div class="ind" role="group" aria-label="Example industry"><span>Show examples for:</span>
+      <button class="indbtn" data-ind="health" aria-pressed="true">Healthcare</button>
+      <button class="indbtn" data-ind="general" aria-pressed="false">General business</button>
+    </div>
+    <div class="ehr" id="ehr"><b>Where the EHR fits.</b> In a hospital, the EHR (Epic or Oracle Health, formerly Cerner) holds patient care records. The ERP runs the business side: supplies, purchasing, finance, payroll and HR. The two connect through healthcare standards such as HL7 and FHIR, often through services like Azure Health Data Services. Patient records stay in the EHR; the examples below use only supply and business data.</div>
+    <div class="hub">
+      <div class="diagram">
+        <svg viewBox="0 0 820 500" role="group" aria-label="Diagram of how the four tools connect" id="hubsvg" class="hubsvg svg-wide">
+          <g class="edge" data-e="pa-bi" tabindex="0" role="button" aria-label="Connection: Power Automate and Power BI">
+            <path class="hit" d="M115 178 C 200 40, 620 40, 705 178"/><path class="ln" d="M115 178 C 200 40, 620 40, 705 178"/>
+            <g class="lbl"><rect x="310" y="58" width="200" height="30" rx="15"/><text x="410" y="78" text-anchor="middle">Data alerts and refresh</text></g>
+          </g>
+          <g class="edge" data-e="erp-pa" tabindex="0" role="button" aria-label="Connection: ERP and Power Automate">
+            <line class="hit" x1="210" y1="215" x2="315" y2="215"/><line class="ln" x1="210" y1="215" x2="315" y2="215"/>
+            <g class="lbl"><rect x="220" y="230" width="85" height="30" rx="15"/><text x="262" y="250" text-anchor="middle">Triggers</text></g>
+          </g>
+          <g class="edge" data-e="erp-bi" tabindex="0" role="button" aria-label="Connection: ERP and Power BI">
+            <line class="hit" x1="505" y1="215" x2="610" y2="215"/><line class="ln" x1="505" y1="215" x2="610" y2="215"/>
+            <g class="lbl"><rect x="512" y="230" width="92" height="30" rx="15"/><text x="558" y="250" text-anchor="middle">Report data</text></g>
+          </g>
+          <g class="edge" data-e="erp-ai" tabindex="0" role="button" aria-label="Connection: ERP and AI Copilot">
+            <line class="hit" x1="410" y1="262" x2="410" y2="382"/><line class="ln" x1="410" y1="262" x2="410" y2="382"/>
+            <g class="lbl"><rect x="340" y="306" width="140" height="30" rx="15"/><text x="410" y="326" text-anchor="middle">Answers, actions</text></g>
+          </g>
+          <g class="edge" data-e="ai-pa" tabindex="0" role="button" aria-label="Connection: AI Copilot and Power Automate">
+            <line class="hit" x1="115" y1="262" x2="300" y2="400"/><line class="ln" x1="115" y1="262" x2="300" y2="400"/>
+            <g class="lbl"><rect x="150" y="314" width="106" height="30" rx="15"/><text x="203" y="334" text-anchor="middle">Agent flows</text></g>
+          </g>
+          <g class="edge" data-e="bi-ai" tabindex="0" role="button" aria-label="Connection: Power BI and AI Copilot">
+            <line class="hit" x1="705" y1="262" x2="520" y2="400"/><line class="ln" x1="705" y1="262" x2="520" y2="400"/>
+            <g class="lbl"><rect x="540" y="314" width="160" height="30" rx="15"/><text x="620" y="334" text-anchor="middle">Copilot in Power BI</text></g>
+          </g>
+          <g class="node" data-n="pa" tabindex="0" role="button" aria-label="Power Automate" style="--c:var(--t-pa)">
+            <rect x="20" y="172" width="190" height="90" rx="14"/><circle class="dot" cx="40" cy="202" r="7"/>
+            <text class="nm" x="54" y="209">Power Automate</text><text class="sb" x="34" y="240">Workflows, approvals</text>
+          </g>
+          <g class="node" data-n="erp" tabindex="0" role="button" aria-label="ERP, Dynamics 365 Business Central" style="--c:var(--t-erp)">
+            <rect x="315" y="166" width="190" height="96" rx="14"/><circle class="dot" cx="335" cy="196" r="7"/>
+            <text class="nm" x="349" y="203">ERP</text><text class="sb" x="329" y="230">Dynamics 365</text><text class="sb" x="329" y="250">Business Central</text>
+          </g>
+          <g class="node" data-n="bi" tabindex="0" role="button" aria-label="Power BI" style="--c:var(--t-bi)">
+            <rect x="610" y="172" width="190" height="90" rx="14"/><circle class="dot" cx="630" cy="202" r="7"/>
+            <text class="nm" x="644" y="209">Power BI</text><text class="sb" x="624" y="240">Dashboards, reports</text>
+          </g>
+          <g class="node" data-n="ai" tabindex="0" role="button" aria-label="AI Copilot" style="--c:var(--t-ai)">
+            <rect x="300" y="382" width="220" height="90" rx="14"/><circle class="dot" cx="320" cy="412" r="7"/>
+            <text class="nm" x="334" y="419">AI Copilot</text><text class="sb" x="314" y="450">Copilot Studio agents</text>
+          </g>
+                </svg>
+        <svg viewBox="0 0 400 540" role="group" aria-label="Diagram of how the four tools connect" class="hubsvg svg-tall">
+          <g class="edge" data-e="pa-bi" tabindex="0" role="button" aria-label="Connection: Power Automate and Power BI">
+            <path class="hit" d="M67 190 C 90 30, 310 30, 333 190"/><path class="ln" d="M67 190 C 90 30, 310 30, 333 190"/>
+            <g class="lbl"><rect x="125" y="56" width="150" height="28" rx="14"/><text x="200" y="75" text-anchor="middle">Alerts and refresh</text></g>
+          </g>
+          <g class="edge" data-e="erp-pa" tabindex="0" role="button" aria-label="Connection: ERP and Power Automate">
+            <line class="hit" x1="126" y1="238" x2="141" y2="238"/><line class="ln" x1="126" y1="238" x2="141" y2="238"/>
+            <line class="hit" x1="110" y1="190" x2="133" y2="166"/>
+            <g class="lbl"><rect x="94" y="140" width="78" height="28" rx="14"/><text x="133" y="159" text-anchor="middle">Triggers</text></g>
+          </g>
+          <g class="edge" data-e="erp-bi" tabindex="0" role="button" aria-label="Connection: ERP and Power BI">
+            <line class="hit" x1="259" y1="238" x2="274" y2="238"/><line class="ln" x1="259" y1="238" x2="274" y2="238"/>
+            <g class="lbl"><rect x="222" y="140" width="92" height="28" rx="14"/><text x="268" y="159" text-anchor="middle">Report data</text></g>
+          </g>
+          <g class="edge" data-e="erp-ai" tabindex="0" role="button" aria-label="Connection: ERP and AI Copilot">
+            <line class="hit" x1="200" y1="296" x2="200" y2="430"/><line class="ln" x1="200" y1="296" x2="200" y2="430"/>
+            <g class="lbl"><rect x="137" y="348" width="126" height="28" rx="14"/><text x="200" y="367" text-anchor="middle">Answers, actions</text></g>
+          </g>
+          <g class="edge" data-e="ai-pa" tabindex="0" role="button" aria-label="Connection: AI Copilot and Power Automate">
+            <line class="hit" x1="67" y1="286" x2="141" y2="478"/><line class="ln" x1="67" y1="286" x2="141" y2="478"/>
+            <g class="lbl"><rect x="16" y="372" width="96" height="28" rx="14"/><text x="64" y="391" text-anchor="middle">Agent flows</text></g>
+          </g>
+          <g class="edge" data-e="bi-ai" tabindex="0" role="button" aria-label="Connection: Power BI and AI Copilot">
+            <line class="hit" x1="333" y1="286" x2="259" y2="478"/><line class="ln" x1="333" y1="286" x2="259" y2="478"/>
+            <g class="lbl"><rect x="272" y="372" width="120" height="28" rx="14"/><text x="332" y="391" text-anchor="middle">Copilot in BI</text></g>
+          </g>
+          <g class="node" data-n="pa" tabindex="0" role="button" aria-label="Power Automate" style="--c:var(--t-pa)">
+            <rect x="8" y="190" width="118" height="96" rx="12"/><circle class="dot" cx="22" cy="214" r="6"/>
+            <text class="nm" x="32" y="220">Power</text><text class="nm" x="20" y="242">Automate</text><text class="sb" x="20" y="268">Workflows</text>
+          </g>
+          <g class="node" data-n="erp" tabindex="0" role="button" aria-label="ERP, Dynamics 365 Business Central" style="--c:var(--t-erp)">
+            <rect x="141" y="180" width="118" height="116" rx="12"/><circle class="dot" cx="155" cy="204" r="6"/>
+            <text class="nm" x="165" y="210">ERP</text><text class="sb" x="153" y="238">Dynamics 365</text><text class="sb" x="153" y="258">Business</text><text class="sb" x="153" y="278">Central</text>
+          </g>
+          <g class="node" data-n="bi" tabindex="0" role="button" aria-label="Power BI" style="--c:var(--t-bi)">
+            <rect x="274" y="190" width="118" height="96" rx="12"/><circle class="dot" cx="288" cy="214" r="6"/>
+            <text class="nm" x="298" y="220">Power BI</text><text class="sb" x="286" y="248">Dashboards</text><text class="sb" x="286" y="268">and reports</text>
+          </g>
+          <g class="node" data-n="ai" tabindex="0" role="button" aria-label="AI Copilot" style="--c:var(--t-ai)">
+            <rect x="141" y="430" width="118" height="96" rx="12"/><circle class="dot" cx="155" cy="454" r="6"/>
+            <text class="nm" x="165" y="460">AI Copilot</text><text class="sb" x="153" y="488">Copilot Studio</text><text class="sb" x="153" y="508">agents</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel" id="hubpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="story" aria-labelledby="st-h">
+    <h3 id="st-h"></h3>
+    <p class="hint" id="st-hint"></p>
+    <div class="dots" id="sdots" role="group" aria-label="Scenario steps"></div>
+    <div class="scard" id="scard"></div>
+    <div class="snav"><button class="sbtn ghost" id="sprev">Previous</button><button class="sbtn" id="snext">Next</button></div>
+  </section>
+  </div>
+
+  <section class="contact" aria-labelledby="ct-h">
+    <div><h2 id="ct-h">Questions? Contact Echolink Solutions</h2><p>Office hours: Monday to Wednesday, 9:00 to 10:00 AM Eastern</p></div>
+    <a class="em" href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>
+  </section>
+
+  <section class="notes">
+    <p><b>About the numbers.</b> Salaries are approximate US base pay and vary by city, employer and industry. ERP main path figures, the ERP Configuration Analyst range and the senior Power Platform and AI salaries come from the Introduction to ERP course deck. Other ranges were checked against 2026 ZipRecruiter, Salary.com, Payscale and KORE1 salary data. Years of experience are typical, not required.</p>
+    <p><b>About certifications.</b> Certifications are optional. You do not need one for this training or to get a job, but they help you stand out. Microsoft retired several exams in 2026: PL-200 (replaced by AB-410), PL-500, PL-600, MB-700 and the MB-910 and MB-920 fundamentals. The certifications shown here were current in November 2026. Check the exam page on Microsoft Learn before you book.</p>
+  </section>
+</div>
+
+<script>
+const TRACKS = {
+  "erp": {
+    name:"ERP", color:"--t-erp", sub:"Dynamics 365 functional path",
+    blurb:"Most ERP careers start in support and move toward consulting and architecture. Around year two or three, people usually pick a functional, data or AI focus.",
+    roles:[
+      {title:"ERP Help Desk Specialist", years:"0 to 1 yr", pay:"$40K to $60K",
+       does:"Answers user tickets, resets passwords, fixes access problems and simple errors, and escalates what it cannot solve. You learn the system from the user's side.",
+       skills:["Navigating Dynamics 365 and Business Central","Ticketing tools such as ServiceNow or Jira","Security roles and user access basics","Writing clear ticket notes and escalations"],
+       certs:[{code:"No certification required",note:"Start with the free Microsoft Learn ERP and Business Central learning paths."}],
+       up:"You can explain why a problem happened, not just how you fixed it, and you start owning one module or process area.",
+       sw:[]},
+      {title:"ERP Support Analyst", years:"1 to 2 yrs", pay:"$55K to $75K",
+       does:"Solves deeper problems with setup, workflows and data, writes how-to documentation, trains users and owns a module such as Purchasing or Accounts Payable.",
+       skills:["Master data versus transactional data","Posting setups and number series","Root cause analysis","Basic Power Automate approval flows"],
+       certs:[{code:"MB-800",note:"Business Central Functional Consultant Associate"}],
+       up:"You run small configuration changes end to end and can map a business process from start to finish.",
+       sw:[["power-automate",0,"Try automation"]]},
+      {title:"ERP Business Analyst", years:"3 to 5 yrs", pay:"$85K to $120K",
+       does:"Meets stakeholders, gathers and documents requirements, maps current and future processes, writes user stories and leads UAT.",
+       skills:["Requirements gathering and BRD or FRD writing","Process mapping in Visio","Fit-gap analysis","UAT planning and test scripts"],
+       certs:[{code:"MB-800, MB-310 or MB-330",note:"Pick the module you work in: Business Central, Finance, or Supply Chain Management"},{code:"ECBA",note:"IIBA Entry Certificate in Business Analysis (optional)"}],
+       up:"Business teams trust your designs and you can configure what you specify, not just write it down.",
+       sw:[["power-bi",1,"Move into reporting"],["ai-copilot",2,"Move into AI consulting"]]},
+      {title:"ERP Functional Consultant", years:"4 to 7 yrs", pay:"$100K to $140K",
+       does:"Configures modules, leads workshops, designs solutions for clients and supports go-live for Finance, Supply Chain or HR.",
+       skills:["Deep module configuration","Data migration","Integration basics such as OData and data entities","Client-facing workshops"],
+       certs:[{code:"MB-310",note:"Dynamics 365 Finance Functional Consultant Associate"},{code:"MB-330",note:"Dynamics 365 Supply Chain Management Functional Consultant Associate"}],
+       up:"You lead a full module through an implementation and mentor junior analysts.",
+       sw:[["ai-copilot",2,"Add Copilot to your module"]]},
+      {title:"Senior ERP Consultant", years:"6 to 10 yrs", pay:"$120K to $170K",
+       does:"Owns full implementations or large workstreams, leads teams and manages client relationships.",
+       skills:["Implementation methodology (Success by Design)","Cross-module design","Estimating and scoping","Change management"],
+       certs:[{code:"PMP",note:"Project Management Professional (PMI), useful if you lean toward delivery leadership"}],
+       up:"You design how the ERP fits with other systems, not just inside one module.",
+       sw:[]},
+      {title:"ERP Solution Architect", years:"8 to 12 yrs", pay:"$150K to $220K",
+       does:"Designs the whole ERP landscape: modules, integrations, data, security, reporting and AI agents.",
+       skills:["Enterprise integration architecture","Security and compliance design","Power Platform and AI design","Solution governance"],
+       certs:[{code:"AB-100",note:"Agentic AI Business Solutions Architect (Expert). Replaces the retired MB-700 path. Requires an active associate certification."}],
+       up:"You run programs or practices and own technology strategy across the business.",
+       sw:[["ai-copilot",3,"Compare with AI architect"]]},
+      {title:"ERP Director or Program Manager", years:"10+ yrs", pay:"$160K to $300K+",
+       does:"Runs large ERP programs from start to go-live, leads an ERP team or consulting practice, and can grow into VP of Enterprise Applications or CIO.",
+       skills:["Budget and vendor management","Executive communication","Portfolio and risk management","Building teams"],
+       certs:[{code:"PMP or PgMP",note:"PMI project and program management credentials"}],
+       up:"Next steps are VP of Enterprise Applications ($250K to $500K+) or CIO and CTO.",
+       sw:[]}
+
+    ],
+    spec:[
+      {title:"ERP Data Analyst", tag:"Data", years:"1 to 4 yrs", pay:"$65K to $95K", from:1, to:["power-bi",2],
+       does:"Keeps ERP data clean and usable: master data for customers, vendors and items, data imports during go-live, and the queries and reports teams rely on.",
+       skills:["Master data management","Data import and export (configuration packages, data entities)","SQL and Excel","Power BI basics","Data quality checks"],
+       certs:[{code:"PL-300",note:"Power BI Data Analyst Associate"},{code:"MB-800",note:"Business Central Functional Consultant Associate, for the ERP side"}],
+       up:"You own data migration for a module or move into Power BI development."},
+      {title:"ERP Configuration Analyst", tag:"Functional", years:"4 to 7 yrs", pay:"$95K to $135K", from:2, to:["erp",3],
+       does:"Sets up the ERP to match approved designs: posting groups, number series, workflows, approval limits, security roles and module parameters, then tests the changes.",
+       skills:["Module setup in Finance, Supply Chain or Business Central","Workflow and approval configuration","Security role design","Test scripts and change logs"],
+       certs:[{code:"MB-800, MB-310 or MB-330",note:"Pick the module you configure"}],
+       up:"You design the configuration, not just enter it, and lead workshops as a Functional Consultant."},
+      {title:"ERP EDI Developer", tag:"Integration", years:"2 to 6 yrs", pay:"$75K to $115K", from:1, to:["erp",6],
+       does:"Builds and maintains the EDI maps that move purchase orders, ship notices and invoices between the ERP and trading partners, and onboards new partners.",
+       skills:["X12 transactions: 850, 855, 856, 810, 940, 945, 204, 214","EDI translators such as IBM Sterling, TrueCommerce or SPS Commerce","AS2 and VAN connections","ERP integration with APIs, OData and data entities","Error triage with trading partners"],
+       certs:[{code:"No single EDI certification",note:"Vendor training from your EDI platform counts most. Add MB-500 or MB-820 for the ERP integration side."}],
+       up:"You design integrations across many systems and grow toward Integration Architect or ERP Solution Architect."},
+      {title:"ERP Technical Consultant or Developer", tag:"Technical", years:"3 to 8 yrs", pay:"$120K to $175K", from:2, to:["erp",5],
+       does:"Writes the code behind the ERP: extensions, reports, integrations and data migration. X++ for Finance and Operations, AL for Business Central.",
+       skills:["X++ (Finance and Operations) or AL (Business Central)","Extensions without changing core code","Integrations with OData, data entities and Azure","Azure DevOps and source control","Performance troubleshooting"],
+       certs:[{code:"MB-500",note:"Finance and Operations Apps Developer Associate"},{code:"MB-820",note:"Business Central Developer Associate"},{code:"PL-400",note:"Power Platform Developer Associate"}],
+       up:"You lead other developers and design technical architecture as a Technical Lead or Solution Architect."},
+      {title:"ERP Trainer", tag:"Training", years:"2+ yrs", pay:"$45K to $80K", from:1, to:["erp",2],
+       does:"Teaches users how to work in the ERP: builds training guides and videos, runs classes before go-live and coaches teams after it.",
+       skills:["Deep hands-on knowledge of one or more modules","Writing step-by-step guides","Running live and virtual classes","Building practice scenarios in a sandbox","Change management"],
+       certs:[{code:"Module certification",note:"MB-800, MB-310 or MB-330 for the module you teach"},{code:"MCT",note:"Microsoft Certified Trainer, once you hold a current role-based certification"}],
+       up:"Trainers who also understand processes often move into Business Analyst, Consultant or training lead roles."}
+    ]},
+  "power-bi": {
+    name:"Power BI", color:"--t-bi", sub:"Reporting and analytics path",
+    blurb:"Every ERP produces data, and leaders need it turned into dashboards. This track starts with reports and grows into data and AI architecture.",
+    roles:[
+      {title:"ERP Reporting Analyst", years:"0 to 2 yrs", pay:"$50K to $85K",
+       does:"Refreshes and checks reports, answers \"why did this number drop?\" questions, and pulls data from the ERP into Excel and Power BI.",
+       skills:["Excel: PivotTables and XLOOKUP","Power BI Desktop basics","Knowing which ERP tables hold sales, inventory and finance data","Data accuracy checks"],
+       certs:[{code:"PL-900",note:"Power Platform Fundamentals, a good first exam"}],
+       up:"You build new dashboards on your own, not just refresh existing ones.",
+       sw:[["erp",1,"Compare with ERP support"]]},
+      {title:"Power BI Data Analyst", years:"1 to 3 yrs", pay:"$70K to $95K",
+       does:"Builds dashboards and KPI reports for Finance, Sales and Operations, and meets business users to learn what they need to see.",
+       skills:["Power Query","Data modeling (star schema)","DAX measures","Visual design for decision makers"],
+       certs:[{code:"PL-300",note:"Power BI Data Analyst Associate, the key exam for this track"}],
+       up:"You model data cleanly, write reliable DAX, and others ask you to fix their reports.",
+       sw:[]},
+      {title:"Power BI Developer", years:"2 to 5 yrs", pay:"$90K to $125K",
+       does:"Builds enterprise data models, connects ERP and other sources, manages workspaces, refresh and row-level security.",
+       skills:["Advanced DAX","SQL","Row-level security","Microsoft Fabric and dataflows","Deployment pipelines"],
+       certs:[{code:"PL-300",note:"Keep it current with the free yearly renewal"}],
+       up:"You design the data layer other developers build on, and you mentor analysts.",
+       sw:[["power-automate",2,"Add automation"]]},
+      {title:"Senior Power BI Developer or BI Lead", years:"5 to 8 yrs", pay:"$115K to $145K",
+       does:"Leads the reporting team, sets standards, owns the enterprise semantic models and governs who sees what.",
+       skills:["BI governance and standards","Performance tuning","Stakeholder management","Fabric lakehouse and warehouse design"],
+       certs:[{code:"PL-300 plus Fabric credentials",note:"Check Microsoft Learn for the current Fabric analytics certification"}],
+       up:"You design data and AI solutions across systems, not just reports.",
+       sw:[]},
+      {title:"Data and AI Architect", years:"8+ yrs", pay:"$145K to $210K",
+       does:"Designs how ERP data, analytics and AI agents fit together across the company. Often titled Enterprise AI Solutions Architect.",
+       skills:["Enterprise data architecture","AI agents grounded in ERP data","Security and compliance","Roadmaps and budgets"],
+       certs:[{code:"AB-100",note:"Agentic AI Business Solutions Architect (Expert)"}],
+       up:"Next steps are Head of Data and Analytics or Chief Data Officer.",
+       sw:[["ai-copilot",3,"See the AI architect role"]]}
+    ]},
+  "power-automate": {
+    name:"Power Automate", color:"--t-pa", sub:"Workflow automation path",
+    blurb:"Automation removes the manual steps around the ERP: approvals, notifications, data entry. Many people start this track while still in another role.",
+    roles:[
+      {title:"Automation Key User", years:"0 to 1 yr", pay:"Adds to your current role",
+       does:"Builds simple flows for your own team: approval emails, Teams alerts, saving attachments to SharePoint.",
+       skills:["Cloud flow triggers and actions","Approvals","SharePoint and Teams connectors","Basic expressions"],
+       certs:[{code:"PL-900",note:"Power Platform Fundamentals"}],
+       up:"Other teams start asking you to build flows for them.",
+       sw:[["erp",0,"Compare with ERP help desk"]]},
+      {title:"ERP Automation Specialist", years:"1 to 3 yrs", pay:"$90K to $135K",
+       does:"Automates ERP processes such as purchase order approvals, vendor onboarding and invoice routing, using the Dynamics 365 and Dataverse connectors.",
+       skills:["Dynamics 365 and Business Central connectors","Error handling and retries","Business process flows","Documenting automations"],
+       certs:[{code:"AB-410",note:"Intelligent Applications Builder Associate, which replaced PL-200 in 2026"}],
+       up:"Your flows run in production for many users and you add Power Apps front ends.",
+       sw:[["ai-copilot",1,"Add AI agents"]]},
+      {title:"Power Platform Developer", years:"2 to 5 yrs", pay:"$90K to $140K",
+       does:"Builds Power Apps, flows and custom connectors, and manages solutions and environments across dev, test and production.",
+       skills:["Power Apps (canvas and model-driven)","Custom connectors and APIs","Dataverse","ALM with solutions and pipelines"],
+       certs:[{code:"PL-400",note:"Power Platform Developer Associate"}],
+       up:"You design automation across systems and handle security, monitoring and scale.",
+       sw:[["power-bi",2,"Compare with Power BI developer"]]},
+      {title:"Intelligent Automation Engineer", years:"4 to 7 yrs", pay:"$110K to $160K",
+       does:"Combines flows, desktop automation, AI Builder and Copilot Studio agents to automate complex, multi-step processes.",
+       skills:["Desktop flows (RPA)","AI Builder document processing","Agent flows in Copilot Studio","Monitoring and governance"],
+       certs:[{code:"PL-400 and AB-620",note:"Developer plus AI Agent Builder Associate. PL-500 (RPA) retired in June 2026."}],
+       up:"You set the automation standards and architecture for the whole company.",
+       sw:[]},
+      {title:"Power Platform Solution Architect", years:"7+ yrs", pay:"$135K to $190K",
+       does:"Designs the Power Platform estate, sets governance and a Center of Excellence, and connects it to the ERP and other systems.",
+       skills:["Platform governance and CoE","Environment and data strategy","Licensing","Leading builders"],
+       certs:[{code:"AB-100",note:"Agentic AI Business Solutions Architect (Expert). PL-600 retired in June 2026."}],
+       up:"Next steps are Automation Practice Lead or Enterprise AI Solutions Architect.",
+       sw:[["ai-copilot",3,"See the AI architect role"]]}
+    ]},
+  "ai-copilot": {
+    name:"AI Copilot", color:"--t-ai", sub:"Copilot Studio and AI agents path",
+    blurb:"Copilot helps people work faster. Copilot Studio lets companies build their own AI agents that answer questions and act inside the ERP.",
+    roles:[
+      {title:"AI-Ready Business User", years:"0 to 1 yr", pay:"Adds to your current role",
+       does:"Uses Microsoft 365 Copilot and Copilot in Dynamics 365 every day to summarize, draft, analyze and find information.",
+       skills:["Prompt writing","Copilot in Teams, Outlook and Excel","Copilot in Dynamics 365","Checking AI output for errors"],
+       certs:[{code:"AB-730",note:"AI Business Professional"},{code:"AB-900",note:"Copilot and Agent Administration Fundamentals (for IT-leaning roles)"}],
+       up:"You build your first simple agent that answers questions from company documents.",
+       sw:[]},
+      {title:"Copilot Studio Developer", years:"1 to 4 yrs", pay:"$95K to $145K",
+       does:"Builds AI agents in Copilot Studio, for example an ERP help desk agent, connects them to data and actions, tests them and publishes to Teams.",
+       skills:["Topics, knowledge and actions","Agent flows with Power Automate","Connecting agents to Business Central or Dataverse","Testing and responsible AI"],
+       certs:[{code:"AB-620",note:"AI Agent Builder Associate"}],
+       up:"Your agents run in production and you understand the business process behind them.",
+       sw:[["power-automate",1,"Compare with automation specialist"]]},
+      {title:"Dynamics 365 AI Functional Consultant", years:"3 to 6 yrs", pay:"$105K to $155K",
+       does:"Configures Dynamics 365 and adds Copilot and agents to real processes: purchasing, inventory, collections and customer service.",
+       skills:["Dynamics 365 module configuration","Copilot features in Finance and Supply Chain","Agent design for business processes","Change management"],
+       certs:[{code:"MB-310, MB-330 or MB-800",note:"Pick the module you work in"},{code:"AB-620",note:"AI Agent Builder Associate"}],
+       up:"You design multi-agent solutions and can explain security and data grounding to IT leaders.",
+       sw:[["erp",3,"Compare with ERP consultant"]]},
+      {title:"Enterprise AI Solutions Architect", years:"7+ yrs", pay:"$145K to $210K",
+       does:"Designs how AI agents, Copilot, Power Platform and the ERP work together safely across the business.",
+       skills:["Multi-agent orchestration","Microsoft Foundry and Azure AI","AI governance and security","Business case and ROI"],
+       certs:[{code:"AB-100",note:"Agentic AI Business Solutions Architect (Expert). Requires an active associate certification such as AB-620 or MB-310."}],
+       up:"Next steps are Head of AI, AI Practice Lead or Chief AI Officer.",
+       sw:[["power-automate",4,"Compare with Power Platform architect"]]}
+    ]}
+};
+const ORDER = ["erp","power-bi","power-automate","ai-copilot"];
+let cur = {track:"erp", idx:0, spec:false};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+function renderTabs(){
+  $("tabs").innerHTML = ORDER.map(k => {
+    const t = TRACKS[k];
+    return `<button class="tab" role="tab" id="tab-${k}" aria-selected="${k===cur.track}" style="--c:var(${t.color})" data-k="${k}"><span class="t">${esc(t.name)}</span><span class="s">${esc(t.sub)}</span></button>`;
+  }).join("");
+  $("tabs").querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => go(b.dataset.k, 0, true)));
+}
+function render(){
+  const t = TRACKS[cur.track];
+  document.documentElement.style.setProperty("--track", `var(${t.color})`);
+  $("tabs").querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.k===cur.track));
+  $("trackTitle").textContent = `${t.name} track`;
+  $("trackSub").textContent = t.blurb;
+  const n = t.roles.length;
+  $("stairs").innerHTML = t.roles.map((r,i) => {
+    const on = !cur.spec && i===cur.idx;
+    const lift = i*14;
+    return `<button class="step" aria-pressed="${on}" data-i="${i}" style="margin-bottom:${lift}px"><span class="lvl">Step ${i+1}</span><span class="role">${esc(r.title)}</span><span class="meta">${esc(r.years)}</span><span class="meta">${esc(r.pay)}</span><span class="bar"></span></button>`;
+  }).join("");
+  $("stairs").querySelectorAll(".step").forEach(b => b.addEventListener("click", () => go(cur.track, +b.dataset.i, false)));
+  const specs = t.spec || [];
+  $("specWrap").hidden = !specs.length;
+  $("specs").innerHTML = specs.map((r,i) => `<button class="step" aria-pressed="${cur.spec && i===cur.idx}" data-i="${i}"><span class="tag">${esc(r.tag)}</span><span class="role">${esc(r.title)}</span><span class="meta">${esc(r.years)}</span><span class="meta">${esc(r.pay)}</span></button>`).join("");
+  $("specs").querySelectorAll(".step").forEach(b => b.addEventListener("click", () => go(cur.track, +b.dataset.i, false, true)));
+  if (cur.spec) { renderSpec(t, specs[cur.idx]); return; }
+  const r = t.roles[cur.idx];
+  const sw = r.sw.map(([k,i,label]) => `<button class="chip-link" style="--c:var(${TRACKS[k].color})" data-k="${k}" data-i="${i}">${esc(label)}: ${esc(TRACKS[k].roles[i].title)}</button>`).join("");
+  $("detail").innerHTML = `
+    <div>
+      <h3>${esc(r.title)}</h3>
+      <div class="facts"><span class="fact"><b>Step ${cur.idx+1}</b> of ${n}</span><span class="fact">${esc(r.years)}</span><span class="fact">${esc(r.pay)}</span></div>
+      <h4>What you do</h4><p>${esc(r.does)}</p>
+      <h4>Skills to build</h4><ul>${r.skills.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+      <h4>Ready for the next step when</h4><p>${esc(r.up)}</p>
+      <div class="next">
+        <button class="btn ghost" id="prev" ${cur.idx===0?"disabled":""}>Previous step</button>
+        <button class="btn" id="nextBtn" ${cur.idx===n-1?"disabled":""}>Next step${cur.idx<n-1?": "+esc(t.roles[cur.idx+1].title):""}</button>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-top:0">Certifications to aim for (optional)</h4>
+      <div class="certs">${r.certs.map(c=>`<div class="cert"><span class="code">${esc(c.code)}</span><span class="note">${esc(c.note)}</span></div>`).join("")}</div>
+      ${sw ? `<h4>Switch tracks from here</h4><div class="switch">${sw}</div>` : ""}
+    </div>`;
+  $("prev").addEventListener("click", () => go(cur.track, cur.idx-1, false));
+  $("nextBtn").addEventListener("click", () => go(cur.track, cur.idx+1, false));
+  $("detail").querySelectorAll(".chip-link").forEach(b => b.addEventListener("click", () => go(b.dataset.k, +b.dataset.i, true)));
+}
+function renderSpec(t, r){
+  const from = t.roles[r.from], [tk, ti] = r.to, to = TRACKS[tk].roles[ti];
+  $("detail").innerHTML = `
+    <div>
+      <h3>${esc(r.title)}</h3>
+      <div class="facts"><span class="fact"><b>${esc(r.tag)}</b> specialist</span><span class="fact">${esc(r.years)}</span><span class="fact">${esc(r.pay)}</span></div>
+      <h4>What you do</h4><p>${esc(r.does)}</p>
+      <h4>Skills to build</h4><ul>${r.skills.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+      <h4>Where it leads</h4><p>${esc(r.up)}</p>
+      <div class="next">
+        <button class="btn ghost" id="joinBtn">Usually entered from: ${esc(from.title)}</button>
+        <button class="btn" id="leadBtn">Leads toward: ${esc(to.title)}</button>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-top:0">Certifications to aim for (optional)</h4>
+      <div class="certs">${r.certs.map(c=>`<div class="cert"><span class="code">${esc(c.code)}</span><span class="note">${esc(c.note)}</span></div>`).join("")}</div>
+    </div>`;
+  $("joinBtn").addEventListener("click", () => go(cur.track, r.from, false));
+  $("leadBtn").addEventListener("click", () => go(tk, ti, tk !== cur.track));
+}
+function go(track, idx, setHash, spec){
+  const list = spec ? TRACKS[track].spec : TRACKS[track].roles;
+  cur = {track, idx: Math.max(0, Math.min(idx, list.length-1)), spec: !!spec};
+  if (setHash && location.hash !== "#"+track) { try { history.replaceState(null, "", "#"+track); } catch(e) { location.hash = track; } }
+  render();
+}
+const HUB = {
+  nodes:{
+    erp:{name:"ERP: Dynamics 365 Business Central", kind:"System of record", c:"--t-erp",
+      what:"The ERP holds the official records of the business: customers, vendors, items, orders, invoices, inventory and the general ledger. The other three tools depend on this data.",
+      gives:["Master data: customers, vendors, items, chart of accounts","Transactions: sales orders, purchase orders, invoices, payments","Events that can trigger a flow, such as a new or changed record"],
+      ex:"A buyer creates a purchase order for 50 laptops. That one record now exists for every other tool to use.",
+      exH:"A hospital records every purchase of surgical supplies, every vendor invoice and every payroll run in the ERP. Patient records stay in the EHR.",
+      roles:"ERP Business Analyst, Functional Consultant, Support Analyst"},
+    bi:{name:"Power BI", kind:"Reporting and analytics", c:"--t-bi",
+      what:"Power BI pulls data out of the ERP and turns it into dashboards that leaders use to make decisions. It reads ERP data. It does not change it.",
+      gives:["Dashboards for sales, spend, inventory and cash","KPIs such as days sales outstanding or on-time delivery","Data alerts when a number crosses a limit"],
+      ex:"The Purchasing dashboard shows spend by vendor, open purchase orders and late deliveries, refreshed from Business Central.",
+      exH:"The supply chain dashboard shows spend by department, stock-outs on nursing units and supplies close to their expiration date.",
+      roles:"ERP Reporting Analyst, Power BI Developer"},
+    pa:{name:"Power Automate", kind:"Workflow and automation", c:"--t-pa",
+      what:"Power Automate watches for events in the ERP and other apps, then runs the steps people used to do by hand: approvals, emails, Teams messages and updates back into the ERP.",
+      gives:["Approval workflows, for example any purchase over $5,000","Notifications in Teams and Outlook","Updates written back to ERP records"],
+      ex:"A new purchase order over $5,000 automatically goes to the manager for approval in Teams. When approved, the flow updates the order in Business Central.",
+      exH:"A nursing unit requests new IV pumps costing $12,000. A flow routes the request to the department director and finance for approval in Teams.",
+      roles:"ERP Automation Specialist, Power Platform Developer"},
+    ai:{name:"AI Copilot: Copilot Studio agents", kind:"AI assistant layer", c:"--t-ai",
+      what:"AI agents let people ask questions and get work done in plain language. A Copilot Studio agent can look up ERP records, call Power Automate flows and explain the answer.",
+      gives:["Answers from ERP data, such as order status or stock levels","Actions through agent flows, such as nudging an approver","Help desk answers so routine tickets never reach an analyst"],
+      ex:"An employee asks in Teams, \u201cWhat is the status of my purchase order?\u201d The agent checks Business Central and replies in seconds.",
+      exH:"A charge nurse asks in Teams, \u201cDo we have size 7 sterile surgical gloves for OR 3?\u201d The agent checks ERP inventory and answers.",
+      roles:"Copilot Studio Developer, Dynamics 365 AI Functional Consultant"}
+  },
+  edges:{
+    "erp-bi":{a:"erp",b:"bi",name:"ERP to Power BI",how:"Power BI connects to Business Central with the built-in Business Central connector, or through APIs and OData. Data flows one way, from the ERP into the report.",
+      ex:"Posted purchase invoices from Business Central feed a Power BI report of spend by vendor, refreshed on a schedule.",
+      exH:"Received purchase orders and vendor invoices feed a report of supply spend by department and cost center, for example surgical services versus the emergency department."},
+    "erp-pa":{a:"erp",b:"pa",name:"ERP and Power Automate",how:"Power Automate uses the Business Central connector. A flow can start when a record is created or changed, and it can write updates back into the ERP. Data flows both ways.",
+      ex:"A purchase order is created, the flow sends the approval, and the approved status is written back to the order.",
+      exH:"The emergency department submits a supply requisition, the flow sends it for approval, and the approved status is written back to the ERP."},
+    "erp-ai":{a:"erp",b:"ai",name:"ERP and AI Copilot",how:"A Copilot Studio agent uses the ERP as its data source, through connectors and agent flows, and only sees what the user's security role allows.",
+      ex:"\u201cDo we have 500 TAB-1001 tablets in stock, and what is the price?\u201d The agent reads the item and inventory records and answers.",
+      exH:"\u201cHas the wound care order for 4 West arrived?\u201d The agent reads the purchase order and receipt in the ERP and answers."},
+    "ai-pa":{a:"ai",b:"pa",name:"AI Copilot and Power Automate",how:"Agents call flows to do work. The agent understands the request and the flow carries out the steps.",
+      ex:"\u201cRemind my manager to approve PO 106020.\u201d The agent starts a flow that sends a Teams reminder.",
+      exH:"\u201cRequest 50 more cases of saline bags for the ICU.\u201d The agent starts a flow that creates the requisition and notifies materials management."},
+    "bi-ai":{a:"bi",b:"ai",name:"Power BI and AI Copilot",how:"Copilot in Power BI lets people ask questions of a report in plain language, and summarizes what the report shows.",
+      ex:"A manager asks, \u201cWhich vendors were late most often this quarter?\u201d and gets a summary and a visual.",
+      exH:"A hospital CFO asks, \u201cWhich departments went over their supply budget this quarter?\u201d and gets a summary with a chart."},
+    "pa-bi":{a:"pa",b:"bi",name:"Power Automate and Power BI",how:"Power BI data alerts can start a flow, and a flow can refresh a Power BI dataset after new ERP data arrives.",
+      ex:"When inventory for a top item drops below 100 units on the dashboard, a flow alerts the buyer in Teams.",
+      exH:"When N95 mask stock drops below the safety level on the dashboard, a flow alerts the materials manager in Teams."}
+  }
+};
+const STORY = [
+  {tool:"erp", t:"1. The buyer creates a purchase order", p:"A buyer enters a purchase order in Business Central for 50 laptops at $150 each, $7,500 in total, from vendor Fabrikam."},
+  {tool:"pa", t:"2. Power Automate sends it for approval", p:"The order is over $5,000, so a flow starts automatically and sends an approval request to the purchasing manager in Teams."},
+  {tool:"pa", t:"3. The manager approves in Teams", p:"The manager clicks Approve. The flow updates the order status in Business Central to Released and tells the buyer it is ready to send."},
+  {tool:"erp", t:"4. Goods arrive and the invoice is matched", p:"The warehouse posts the receipt and accounts payable posts the vendor invoice. The order, receipt and invoice agree, so the three-way match passes and payment can be made."},
+  {tool:"bi", t:"5. Power BI shows the result", p:"The Purchasing dashboard refreshes. Spend with Fabrikam goes up by $7,500, open purchase orders drop by one, and on-time delivery for the vendor is updated."},
+  {tool:"ai", t:"6. Anyone can ask the AI agent", p:"An employee asks the Copilot Studio agent in Teams, \u201cHas the laptop order been received?\u201d The agent checks Business Central and answers, with no help desk ticket needed."}
+];
+const STORY_H = [
+  {tool:"erp", t:"1. Stock runs low in the OR storeroom", p:"The hospital ERP shows 40 boxes of size 7 sterile surgical gloves left in the operating room storeroom, below the reorder point of 60 boxes."},
+  {tool:"pa", t:"2. Power Automate starts a requisition", p:"A flow sees the low stock, creates a requisition for 200 boxes from the medical supplier, $3,400 in total, and sends it to the materials manager in Teams."},
+  {tool:"pa", t:"3. The materials manager approves", p:"The materials manager approves in Teams. The flow turns the requisition into a released purchase order in the ERP and confirms it to the OR supply coordinator."},
+  {tool:"erp", t:"4. Gloves arrive and are received", p:"The receiving clerk posts the receipt with lot numbers and expiration dates. Accounts payable matches the supplier invoice to the order and receipt, so the three-way match passes."},
+  {tool:"bi", t:"5. The supply dashboard updates", p:"Power BI shows the OR back above its par level, glove spend for surgical services up by $3,400, and no gloves close to expiry."},
+  {tool:"ai", t:"6. A charge nurse checks before the first case", p:"Before the first surgery, the charge nurse asks the Copilot agent in Teams, \u201cDo we have size 7 sterile gloves for OR 3?\u201d The agent checks the ERP and confirms, with no phone calls to the storeroom."}
+];
+let IND = "health";
+const STORY_TITLE = {health:["Restocking surgical gloves, all four tools","Follow one supply order through a hospital. The diagram above lights up the tool doing the work at each step."],
+  general:["One purchase order, all four tools","Follow a single purchase order through the company. The diagram above lights up the tool doing the work at each step."]};
+function story(){ return IND==="health" ? STORY_H : STORY; }
+let hubSel = {type:"n", id:"erp"}, sIdx = 0;
+function hubName(k){ return {erp:"ERP",bi:"Power BI",pa:"Power Automate",ai:"AI Copilot"}[k]; }
+function hubRender(lit){
+  document.querySelectorAll(".hubsvg .node").forEach(g => {
+    g.classList.toggle("on", hubSel.type==="n" && hubSel.id===g.dataset.n);
+    g.classList.toggle("lit", !!lit && lit===g.dataset.n);
+  });
+  document.querySelectorAll(".hubsvg .edge").forEach(g => {
+    const e = HUB.edges[g.dataset.e];
+    g.classList.toggle("on", hubSel.type==="e" && hubSel.id===g.dataset.e);
+    g.classList.toggle("lit", hubSel.type==="n" && (e.a===hubSel.id || e.b===hubSel.id));
+  });
+  const P = $("hubpanel");
+  if (hubSel.type==="n"){
+    const n = HUB.nodes[hubSel.id];
+    const links = Object.entries(HUB.edges).filter(([k,e]) => e.a===hubSel.id || e.b===hubSel.id)
+      .map(([k,e]) => `<li>${esc(hubName(e.a===hubSel.id?e.b:e.a))}: ${esc(e.how.split(". ")[0].replace(/\.$/,""))}.</li>`).join("");
+    P.innerHTML = `<span class="kind">${esc(n.kind)}</span><h3>${esc(n.name)}</h3><p>${esc(n.what)}</p>
+      <h4>What it provides</h4><ul>${n.gives.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
+      <h4>Connects to</h4><ul>${links}</ul>
+      <h4>${IND==="health"?"Healthcare example":"Example"}</h4><div class="ex">${esc(IND==="health"&&n.exH?n.exH:n.ex)}</div>
+      <h4>Roles that work here</h4><p>${esc(n.roles)}</p>`;
+  } else {
+    const e = HUB.edges[hubSel.id];
+    P.innerHTML = `<span class="kind">Connection</span><h3>${esc(e.name)}</h3><p>${esc(e.how)}</p>
+      <h4>${IND==="health"?"Healthcare example":"Example"}</h4><div class="ex">${esc(IND==="health"&&e.exH?e.exH:e.ex)}</div>
+      <p class="hint">Click ${esc(hubName(e.a))} or ${esc(hubName(e.b))} in the diagram for more on each tool.</p>`;
+  }
+}
+function storyRender(){
+  const S = story(), st = S[sIdx], n = HUB.nodes[st.tool];
+  $("st-h").textContent = STORY_TITLE[IND][0]; $("st-hint").textContent = STORY_TITLE[IND][1];
+  $("ehr").hidden = IND!=="health";
+  $("sdots").innerHTML = S.map((x,i) => `<button class="dotbtn" data-i="${i}" ${i===sIdx?'aria-current="step"':""} aria-label="Step ${i+1}">${i+1}</button>`).join("");
+  $("sdots").querySelectorAll(".dotbtn").forEach(b => b.addEventListener("click", () => { sIdx=+b.dataset.i; storyRender(); }));
+  $("scard").innerHTML = `<span class="tool" style="--c:var(${n.c})">${esc(hubName(st.tool))}</span><span class="t">${esc(st.t)}</span><p>${esc(st.p)}</p>`;
+  $("sprev").disabled = sIdx===0; $("snext").disabled = sIdx===story().length-1;
+  hubSel = {type:"n", id:st.tool}; hubRender(st.tool);
+}
+function hubBind(){
+  const pick = (type,id) => { hubSel={type,id}; hubRender(); };
+  document.querySelectorAll(".hubsvg .node").forEach(g => {
+    g.addEventListener("click", () => pick("n", g.dataset.n));
+    g.addEventListener("keydown", ev => { if (ev.key==="Enter"||ev.key===" ") { ev.preventDefault(); pick("n", g.dataset.n); } });
+  });
+  document.querySelectorAll(".hubsvg .edge").forEach(g => {
+    g.addEventListener("click", () => pick("e", g.dataset.e));
+    g.addEventListener("keydown", ev => { if (ev.key==="Enter"||ev.key===" ") { ev.preventDefault(); pick("e", g.dataset.e); } });
+  });
+  $("sprev").addEventListener("click", () => { if (sIdx>0) { sIdx--; storyRender(); } });
+  $("snext").addEventListener("click", () => { if (sIdx<story().length-1) { sIdx++; storyRender(); } });
+  document.querySelectorAll(".indbtn").forEach(b => b.addEventListener("click", () => {
+    IND = b.dataset.ind; sIdx = 0;
+    document.querySelectorAll(".indbtn").forEach(x => x.setAttribute("aria-pressed", x===b));
+    const keep = hubSel; storyRender(); hubSel = keep; hubRender();
+  }));
+  hubRender(); storyRender(); hubSel={type:"n",id:"erp"}; hubRender();
+}
+const VIEWS = {paths:"view-paths", info:"view-info", connect:"view-connect"};
+const VHASH = {info:"class-info", connect:"how-they-connect"};
+function showView(v, setHash){
+  Object.entries(VIEWS).forEach(([k,id]) => { $(id).hidden = k!==v; $("ptab-"+k).setAttribute("aria-selected", k===v); });
+  if (setHash) { const h = VHASH[v] || cur.track; try { history.replaceState(null, "", "#"+h); } catch(e) { location.hash = h; } }
+}
+document.querySelectorAll(".ptab").forEach(b => b.addEventListener("click", () => { showView(b.dataset.view, true); window.scrollTo({top:0}); }));
+function fromHash(){
+  const h = location.hash.replace("#","");
+  if (h === "class-info") { showView("info", false); return; }
+  if (h === "how-they-connect") { showView("connect", false); return; }
+  if (TRACKS[h]) { showView("paths", false); if (h !== cur.track) go(h, 0, false); }
+}
+document.addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("input,textarea")) return;
+  if (!$("view-paths") || $("view-paths").hidden) return;
+  if (e.key === "ArrowRight") go(cur.track, cur.idx+1, false, cur.spec);
+  if (e.key === "ArrowLeft") go(cur.track, cur.idx-1, false, cur.spec);
+});
+window.addEventListener("hashchange", fromHash);
+renderTabs();
+const h0 = location.hash.replace("#","");
+go(TRACKS[h0] ? h0 : "erp", 0, false);
+hubBind();
+document.querySelectorAll(".check input").forEach(c => {
+  try { c.checked = localStorage.getItem("ecl-"+c.id) === "1"; } catch(e) {}
+  c.addEventListener("change", () => { try { localStorage.setItem("ecl-"+c.id, c.checked ? "1" : "0"); } catch(e) {} });
+});
+if (h0 === "class-info") showView("info", false);
+if (h0 === "how-they-connect") showView("connect", false);
+</script>
+</body>
+</html>
