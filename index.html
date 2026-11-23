@@ -186,6 +186,17 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
 .sbtn[disabled]{opacity:.4;cursor:default}
 .sbtn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 @media (max-width:860px){.hub{grid-template-columns:1fr}}
+.bstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:10px}
+.bstats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:grid;gap:2px}
+.bstats b{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--brand-ink);font-variant-numeric:tabular-nums}
+.bstats span{font-size:14px;color:var(--muted)}
+.pgroups{display:grid;gap:18px}
+.pgroup{display:grid;gap:8px}
+.pg-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.pg-head h3{font-family:var(--display);font-size:18px;margin:0;display:flex;align-items:center;gap:8px}
+.pg-head h3::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.pg-head .count{font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;border:1.5px solid var(--c)}
+.pgroup > p{margin:0;color:var(--muted);font-size:15px}
 .twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:12px}
 .box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px;align-content:start}
 .box h3{font-family:var(--display);font-size:18px;margin:0}
@@ -260,8 +271,8 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
 
   <div class="pagetabs" role="tablist" aria-label="Page sections">
     <button class="ptab" role="tab" id="ptab-paths" aria-controls="view-paths" aria-selected="true" data-view="paths">Career paths</button>
-    <button class="ptab" role="tab" id="ptab-info" aria-controls="view-info" aria-selected="false" data-view="info">Class info and Q&amp;A</button>
     <button class="ptab" role="tab" id="ptab-connect" aria-controls="view-connect" aria-selected="false" data-view="connect">How they connect</button>
+    <button class="ptab" role="tab" id="ptab-info" aria-controls="view-info" aria-selected="false" data-view="info">Class info and Q&amp;A</button>
   </div>
 
   <div class="view" id="view-paths" role="tabpanel" aria-labelledby="ptab-paths">
@@ -321,16 +332,36 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
 
   <section class="sec" id="build" aria-labelledby="build-h">
     <h2 id="build-h">What you will build</h2>
-    <p>You leave with real work you can show employers and talk through in interviews, not just notes.</p>
-    <div class="projects">
-      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash BRD</b><p>A business requirements document that maps a sales process from customer order to cash received.</p></div>
-      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Support tickets</b><p>Work real ERP Support Analyst tickets in the Echolink ERP Service Desk lab, the way a help desk does.</p></div>
-      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Business Central setup</b><p>Set up customers, vendors and items, then run purchasing and sales transactions end to end.</p></div>
-      <div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Operations dashboard</b><p>Turn ERP data into a dashboard leaders can use, such as hospital supply spend by department.</p></div>
-      <div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>Approval flow</b><p>Route purchase requests for approval in Teams and write the result back to the ERP.</p></div>
-      <div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Apps</span><b>Business app</b><p>Build a simple app that lets staff submit and track requests from a phone or browser.</p></div>
-      <div class="proj" style="--c:var(--t-ai)"><span class="tool">AI Copilot</span><b>Copilot Studio agent</b><p>Build an AI agent that answers ERP questions in Teams and starts flows to get work done.</p></div>
+    <p>You leave with real work you can show employers and talk through in interviews. Here is the full list of projects across the class.</p>
+    <div class="bstats">
+      <div><b>9</b><span>ERP processes and projects</span></div>
+      <div><b>6</b><span>Power BI data integrations</span></div>
+      <div><b>5</b><span>Power Automate projects, plus a Power App</span></div>
+      <div><b>10</b><span>AI agents across industries</span></div>
     </div>
+    <div class="pgroups">
+      <div class="pgroup" style="--c:var(--t-erp)">
+        <div class="pg-head"><h3>ERP business processes in Dynamics 365 Business Central</h3><span class="count">9 projects</span></div>
+        <p>Each process is built and run end to end, the way the business uses it.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash (O2C)</b><p>Customer order, shipment, invoice and payment received, end to end in Business Central.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Procure-to-Pay (P2P)</b><p>Purchase requisition, purchase order, goods receipt, vendor invoice, three-way match and payment.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Record-to-Report (R2R)</b><p>Journal entries, bank reconciliation, month-end close and financial statements.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Plan-to-Produce</b><p>Bills of materials, production orders and inventory for a manufacturing scenario.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Hire-to-Retire</b><p>Employee records, payroll setup and the HR side of the ERP.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Project-to-Profit</b><p>Project budgets, time and expenses, billing and project profitability.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash BRD</b><p>A business requirements document that maps a full process, the way a Business Analyst delivers it.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Support tickets</b><p>Real ERP Support Analyst tickets in the Echolink ERP Service Desk lab.</p></div><div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Business Central setup</b><p>Customers, vendors, items, posting groups, approval workflows and security roles.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-bi)">
+        <div class="pg-head"><h3>Power BI, connected to real data sources</h3><span class="count">6 integrations</span></div>
+        <p>Build reports on more than one system, not just a spreadsheet.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Business Central data</b><p>Sales, purchasing, inventory and finance dashboards built on live ERP data.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Open Epic healthcare data</b><p>Use FHIR test data from the Open Epic public sandbox to build healthcare reports. Test data only, no real patients.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Dataverse</b><p>Report on data from Power Apps, Power Automate and Copilot Studio stored in Dataverse.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Microsoft Foundry</b><p>Bring AI results from Microsoft Foundry into Power BI, such as predictions and classifications.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Excel, SharePoint and SQL</b><p>Combine and clean everyday business data sources with Power Query.</p></div><div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Hospital supply dashboard</b><p>Spend by department, stock-outs and supplies close to expiry, with row-level security.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-pa)">
+        <div class="pg-head"><h3>Power Automate and Power Apps</h3><span class="count">5 flows and 1 app</span></div>
+        <p>Automate the manual steps around the ERP.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>1. Purchase order approval</b><p>Orders over a set amount go to a manager in Teams, and the result is written back to the ERP.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>2. Vendor onboarding</b><p>Collect vendor details with a form, route them for review, then create the vendor in the ERP.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>3. Invoice processing with AI</b><p>Read vendor invoices from email with AI Builder and send them to accounts payable for review.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>4. Low stock reorder alert</b><p>When inventory drops below its reorder point, alert the buyer and start a requisition.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>5. New hire onboarding</b><p>Create accounts, send welcome messages and assign training tasks when a new employee is added.</p></div><div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Apps</span><b>Request tracker app</b><p>A Power Apps app where staff submit and track requests from a phone or browser.</p></div></div>
+      </div>
+      <div class="pgroup" style="--c:var(--t-ai)">
+        <div class="pg-head"><h3>AI agents in Copilot Studio</h3><span class="count">10 agents</span></div>
+        <p>Ten agents built in class, covering the industries students come from.</p>
+        <div class="projects"><div class="proj" style="--c:var(--t-ai)"><span class="tool">Healthcare</span><b>1. Hospital supply agent</b><p>Answers questions about supply stock and orders for nursing units and the OR.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Healthcare</span><b>2. Patient access FAQ agent</b><p>Answers questions about clinic hours, locations, referrals and insurance accepted. No patient records.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Manufacturing</span><b>3. Parts and production agent</b><p>Checks part availability, production order status and bills of materials.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Retail</span><b>4. Order status and returns agent</b><p>Looks up customer orders, delivery dates and return rules.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Logistics</span><b>5. Shipment tracking agent</b><p>Answers where a shipment is, using EDI 214 status updates and carrier data.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Finance</span><b>6. Invoice status agent</b><p>Tells vendors and staff whether an invoice is received, approved or paid.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Human resources</span><b>7. Benefits and policy agent</b><p>Answers employee questions from the handbook and benefits documents.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">IT</span><b>8. ERP service desk agent</b><p>Resolves common ERP tickets such as password resets and access requests, and escalates the rest.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Construction</span><b>9. Project cost agent</b><p>Reports budget versus actual cost and change orders for a construction project.</p></div><div class="proj" style="--c:var(--t-ai)"><span class="tool">Education</span><b>10. Student enrollment agent</b><p>Answers questions about programs, start dates and enrollment steps.</p></div></div>
+      </div>
+    </div>
+    <p class="hint">The exact projects can change from class to class as Microsoft releases new features.</p>
   </section>
 
   <section class="sec" id="jobs" aria-labelledby="jobs-h">
