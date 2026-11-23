@@ -102,7 +102,7 @@ h1{font-family:var(--display);font-size:clamp(28px,4vw,40px);line-height:1.15;ma
 .sec{display:grid;gap:14px}
 .sec h2{font-family:var(--display);font-size:24px;margin:0}
 .sec > p{margin:0;color:var(--muted);max-width:70ch}
-.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:10px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:10px}
 .info .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:4px}
 .info .k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .info .v{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3}
@@ -185,6 +185,27 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
 .sbtn[disabled]{opacity:.4;cursor:default}
 .sbtn:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 @media (max-width:860px){.hub{grid-template-columns:1fr}}
+.twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px;align-content:start}
+.box h3{font-family:var(--display);font-size:18px;margin:0}
+.box p{margin:0}
+.steps{margin:0;padding-left:22px;display:grid;gap:8px}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--brand);flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.proj .tool{justify-self:start;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;border:1.5px solid var(--c);color:var(--ink)}
+.proj b{font-family:var(--display);font-size:16px}
+.proj p{margin:0;font-size:15px;color:var(--muted)}
+.bio{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.bio .av{width:64px;height:64px;border-radius:50%;background:var(--brand);color:#fff;font-family:var(--display);font-weight:700;font-size:22px;display:grid;place-items:center}
+.bio h3{font-family:var(--display);font-size:20px;margin:0}
+.bio .role{color:var(--muted);font-size:15px;margin:2px 0 8px}
+.bio ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.honest{border-left:0;background:var(--bg);border:1px dashed var(--brand);border-radius:10px;padding:10px 14px;font-size:15px}
+@media (max-width:640px){.bio{grid-template-columns:1fr}}
 .notes{font-size:14px;color:var(--muted);display:grid;gap:6px}
 .notes p{margin:0;max-width:90ch}
 @media (max-width:820px){
@@ -238,7 +259,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
 
   <div class="pagetabs" role="tablist" aria-label="Page sections">
     <button class="ptab" role="tab" id="ptab-paths" aria-controls="view-paths" aria-selected="true" data-view="paths">Career paths</button>
-    <button class="ptab" role="tab" id="ptab-info" aria-controls="view-info" aria-selected="false" data-view="info">Software, reading and Q&amp;A</button>
+    <button class="ptab" role="tab" id="ptab-info" aria-controls="view-info" aria-selected="false" data-view="info">Class info and Q&amp;A</button>
     <button class="ptab" role="tab" id="ptab-connect" aria-controls="view-connect" aria-selected="false" data-view="connect">How they connect</button>
   </div>
 
@@ -261,10 +282,89 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
   <section class="sec" id="class-details" aria-labelledby="cd-h">
     <h2 id="cd-h">Class details</h2>
     <div class="info">
+      <div class="card"><span class="k">Next class</span><span class="v">November 30 to December 29, 2026</span><span class="d">Evening cohort, live with your instructor</span></div>
       <div class="card"><span class="k">Live class</span><span class="v">Monday to Friday, 6:30 to 8:30 PM Eastern</span><span class="d">About four weeks of live sessions</span></div>
       <div class="card"><span class="k">Office hours</span><span class="v">Monday to Wednesday, 9:00 to 10:00 AM Eastern</span><span class="d">Bring any question about class work, projects or your job search</span></div>
       <div class="card"><span class="k">Time to job ready</span><span class="v">4 to 8 weeks on average</span><span class="d">Depends on how fast you finish your projects</span></div>
       <div class="card"><span class="k">Contact</span><span class="v"><a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a></span><span class="d">Questions about enrollment, access or schedules</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="join" aria-labelledby="join-h">
+    <h2 id="join-h">Joining the next class</h2>
+    <div class="twocol">
+      <div class="box">
+        <h3>How to enroll</h3>
+        <ol class="steps">
+          <li>Ask your questions in today's Q&amp;A, or email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>.</li>
+          <li>Returning students: ask for your coupon code before you register.</li>
+          <li>Complete registration and payment. Price and payment options are covered in the Q&amp;A and by email.</li>
+          <li>Watch for your Microsoft Teams invite and your Echolink class Microsoft account.</li>
+          <li>Finish the Before your first class checklist.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Before your first class</h3>
+        <ul class="check">
+          <li><label><input type="checkbox" id="chk1"><span>Accept your Microsoft Teams invite and join the class team</span></label></li>
+          <li><label><input type="checkbox" id="chk2"><span>Sign in with the Echolink class Microsoft account, not a personal email</span></label></li>
+          <li><label><input type="checkbox" id="chk3"><span>Test each sign-in link in Software and reading materials below</span></label></li>
+          <li><label><input type="checkbox" id="chk4"><span>Install Power BI Desktop if you use Windows</span></label></li>
+          <li><label><input type="checkbox" id="chk5"><span>Check your internet, microphone and camera</span></label></li>
+          <li><label><input type="checkbox" id="chk6"><span>Block 6:30 to 8:30 PM Eastern, Monday to Friday, on your calendar</span></label></li>
+          <li><label><input type="checkbox" id="chk7"><span>Plan time for homework each week, the way you would for a job</span></label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="build" aria-labelledby="build-h">
+    <h2 id="build-h">What you will build</h2>
+    <p>You leave with real work you can show employers and talk through in interviews, not just notes.</p>
+    <div class="projects">
+      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Order-to-Cash BRD</b><p>A business requirements document that maps a sales process from customer order to cash received.</p></div>
+      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Support tickets</b><p>Work real ERP Support Analyst tickets in the Echolink ERP Service Desk lab, the way a help desk does.</p></div>
+      <div class="proj" style="--c:var(--t-erp)"><span class="tool">ERP</span><b>Business Central setup</b><p>Set up customers, vendors and items, then run purchasing and sales transactions end to end.</p></div>
+      <div class="proj" style="--c:var(--t-bi)"><span class="tool">Power BI</span><b>Operations dashboard</b><p>Turn ERP data into a dashboard leaders can use, such as hospital supply spend by department.</p></div>
+      <div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Automate</span><b>Approval flow</b><p>Route purchase requests for approval in Teams and write the result back to the ERP.</p></div>
+      <div class="proj" style="--c:var(--t-pa)"><span class="tool">Power Apps</span><b>Business app</b><p>Build a simple app that lets staff submit and track requests from a phone or browser.</p></div>
+      <div class="proj" style="--c:var(--t-ai)"><span class="tool">AI Copilot</span><b>Copilot Studio agent</b><p>Build an AI agent that answers ERP questions in Teams and starts flows to get work done.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="jobs" aria-labelledby="jobs-h">
+    <h2 id="jobs-h">Job support after class</h2>
+    <div class="twocol">
+      <div class="box">
+        <ul class="steps">
+          <li>Finish all your projects. Graduation is based on completed projects.</li>
+          <li>When your instructor confirms you are ready, you move to interview preparation.</li>
+          <li>You get recruiter contacts and open roles to apply for.</li>
+          <li>You get help with your applications and with talking about your projects in interviews.</li>
+          <li>If you need more time, you can sit in on the next class.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <p class="honest"><b>Honest note.</b> Training and job support improve your chances, but no training program can guarantee a job. Your effort on the projects, your interview practice and the job market all play a part.</p>
+        <p>On average, students who finish their projects are ready to interview in 4 to 8 weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="instructor" aria-labelledby="ins-h">
+    <h2 id="ins-h">About your instructor</h2>
+    <div class="bio">
+      <div class="av" aria-hidden="true">DK</div>
+      <div>
+        <h3>Drew Kunle</h3>
+        <p class="role">Founder and CEO, Echolink Solutions</p>
+        <ul>
+          <li>Set up integrations with US hospitals running Epic and Cerner, and delivered training to NHS trusts in the UK and to organizations in Sweden, the Middle East and Africa.</li>
+          <li>At J.B. Hunt, worked as Enterprise Data Integration Engineer and Senior AI Ethics and EDI Solutions Architect, and built and deployed more than 300 Copilot Studio agents across Teams and SharePoint.</li>
+          <li>Hands-on with Microsoft Dynamics 365, EDI trading partner onboarding, Power BI, Power Automate and Microsoft Entra.</li>
+          <li>ERP Business Analyst experience on Dynamics 365 and ERP Business Systems Analyst experience on Oracle Applications.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -328,6 +428,11 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-off
       <details><summary>Which track should I choose?</summary><div class="a"><p>Everyone starts with ERP, because every other track uses ERP data. Then follow what you enjoy:</p><ul><li>Solving business problems and talking to people: ERP Business Analyst or Functional Consultant.</li><li>Numbers and dashboards: Power BI.</li><li>Removing manual steps: Power Automate and Power Apps.</li><li>AI agents: Copilot Studio.</li></ul><p>Open the Career paths tab to compare roles and pay on each track.</p></div></details>
       <details open><summary>Do I need a certification?</summary><div class="a"><p>No. You do not need a certification to take this training or to get a job. A certification is optional. It helps solidify what you have learned and makes you stand out to employers and recruiters.</p></div></details>
       <details><summary>Which certification should I take first?</summary><div class="a"><p>Certifications are optional. If you want one, match it to your track: MB-800 for ERP (Business Central), PL-300 for Power BI, AB-410 or PL-400 for Power Automate and Power Apps, and AB-730 then AB-620 for AI Copilot. PL-900 is a good first exam if you want a broad introduction. Always check the retired exams page before you study.</p></div></details>
+      <details><summary>How much does the class cost, and how do I pay?</summary><div class="a"><p>Price and payment options are covered in the live Q&amp;A. You can also email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>. Returning students should ask for their coupon code.</p></div></details>
+      <details><summary>When does the next class start?</summary><div class="a"><p>The next evening class runs November 30 to December 29, 2026, Monday to Friday, 6:30 PM to 8:30 PM Eastern. Ask in the Q&amp;A about the schedule around the December holidays.</p></div></details>
+      <details><summary>What if I miss a class?</summary><div class="a"><p>Tell your instructor in Teams before class whenever you can, the same way you would tell a manager at work. Ask in the Q&amp;A how to catch up on a missed session.</p></div></details>
+      <details><summary>How much time will I need outside class?</summary><div class="a"><p>Plan for homework every week, the way you would for a job. Projects are what get you to graduation and to interviews, so the more time you put in, the faster you get there. Ask in the Q&amp;A for a weekly estimate.</p></div></details>
+      <details><summary>Is a job guaranteed?</summary><div class="a"><p>No training program can guarantee a job. What you get is hands-on projects, interview preparation, recruiter contacts and open roles, and help with your applications once your instructor confirms you are ready.</p></div></details>
       <details><summary>What happens after I finish?</summary><div class="a"><p>When all your projects are complete and your instructor confirms you are ready, you move to interview preparation. You then get recruiter contacts and open roles to apply for, with help on your applications.</p></div></details>
       <details><summary>Who do I contact with other questions?</summary><div class="a"><p>Email <a href="mailto:info@echolinksolutions.com">info@echolinksolutions.com</a>, or bring your question to office hours.</p></div></details>
     </div>
@@ -863,6 +968,10 @@ renderTabs();
 const h0 = location.hash.replace("#","");
 go(TRACKS[h0] ? h0 : "erp", 0, false);
 hubBind();
+document.querySelectorAll(".check input").forEach(c => {
+  try { c.checked = localStorage.getItem("ecl-"+c.id) === "1"; } catch(e) {}
+  c.addEventListener("change", () => { try { localStorage.setItem("ecl-"+c.id, c.checked ? "1" : "0"); } catch(e) {} });
+});
 if (h0 === "class-info") showView("info", false);
 if (h0 === "how-they-connect") showView("connect", false);
 </script>
